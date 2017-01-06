@@ -1,0 +1,90 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myVirtualMachineLabel">Create or edit a Virtual Machine</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.virtualMachine.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.virtualMachine.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.virtualMachine.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.virtualMachine.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_environment">Environment</label>
+            <select class="form-control" name="environment" ng-model="vm.virtualMachine.environment" id="field_environment">
+                <option value="DEV">DEV</option>
+                <option value="TEST">TEST</option>
+                <option value="PROD">PROD</option>
+                <option value="STAGING">STAGING</option>
+                <option value="QA">QA</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ip">Ip</label>
+            <input type="text" class="form-control" name="ip" id="field_ip"
+                    ng-model="vm.virtualMachine.ip"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_hdd">Hdd</label>
+            <input type="text" class="form-control" name="hdd" id="field_hdd"
+                    ng-model="vm.virtualMachine.hdd"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_processor">Processor</label>
+            <input type="text" class="form-control" name="processor" id="field_processor"
+                    ng-model="vm.virtualMachine.processor"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ram">Ram</label>
+            <input type="text" class="form-control" name="ram" id="field_ram"
+                    ng-model="vm.virtualMachine.ram"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label for="field_project">Project</label>
+            <select class="form-control" id="field_project" name="project" ng-model="vm.virtualMachine.project" ng-options="project as project.id for project in vm.projects track by project.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_operatingSystem">Operating System</label>
+            <select class="form-control" id="field_operatingSystem" name="operatingSystem" ng-model="vm.virtualMachine.operatingSystem" ng-options="operatingSystem as operatingSystem.id for operatingSystem in vm.operatingsystems track by operatingSystem.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

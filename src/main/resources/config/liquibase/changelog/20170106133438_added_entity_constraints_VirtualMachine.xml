@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity VirtualMachine.
+    -->
+    <changeSet id="20170106133438-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="project_id"
+                                 baseTableName="virtual_machine"
+                                 constraintName="fk_virtual_machine_project_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project"/>
+
+        <addForeignKeyConstraint baseColumnNames="operating_system_id"
+                                 baseTableName="virtual_machine"
+                                 constraintName="fk_virtual_machine_operating_system_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="operating_system"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,56 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "project",
+            "otherEntityName": "project",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "operatingSystem",
+            "otherEntityName": "operatingSystem",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "environment",
+            "fieldType": "Environment",
+            "fieldValues": "DEV,TEST,PROD,STAGING,QA"
+        },
+        {
+            "fieldName": "ip",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "hdd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "processor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ram",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170106133438",
+    "entityTableName": "virtual_machine",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl"
+}

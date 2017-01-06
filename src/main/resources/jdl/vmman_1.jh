@@ -1,4 +1,5 @@
-entity User
+entity VMUser {
+}
 
 entity Department {
 	name String required
@@ -7,6 +8,7 @@ entity Department {
 entity VirtualMachine {
 	name String required,
     description String,
+    environment Environment,
     ip String,
     hdd String,
     processor String,
@@ -26,11 +28,11 @@ enum Environment {
 }
 
 relationship OneToMany {
-	Department{managers} to User{department}
+	Department{managers} to VMUser
 }
 
 relationship ManyToOne {
-	User{department} to Department{users}
+	VMUser{department} to Department{users}
 }
 
 relationship ManyToOne {
@@ -38,14 +40,10 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	VirtualMachine{environment} to Environment
-}
-
-relationship ManyToOne {
 	VirtualMachine{operatingSystem} to OperatingSystem
 }
 
-dto * with mapstruct
+//dto * with mapstruct
 
 paginate * with pagination
 

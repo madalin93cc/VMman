@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span>Virtual Machine</span> {{vm.virtualMachine.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.name}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.description}}</span>
+        </dd>
+        <dt><span>Environment</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.environment}}</span>
+        </dd>
+        <dt><span>Ip</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.ip}}</span>
+        </dd>
+        <dt><span>Hdd</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.hdd}}</span>
+        </dd>
+        <dt><span>Processor</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.processor}}</span>
+        </dd>
+        <dt><span>Ram</span></dt>
+        <dd>
+            <span>{{vm.virtualMachine.ram}}</span>
+        </dd>
+        <dt><span>Project</span></dt>
+        <dd>
+            <a ui-sref="project-detail({id:vm.virtualMachine.project.id})">{{vm.virtualMachine.project.id}}</a>
+        </dd>
+        <dt><span>Operating System</span></dt>
+        <dd>
+            <a ui-sref="operating-system-detail({id:vm.virtualMachine.operatingSystem.id})">{{vm.virtualMachine.operatingSystem.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="virtual-machine-detail.edit({id:vm.virtualMachine.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>
