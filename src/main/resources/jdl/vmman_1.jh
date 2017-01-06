@@ -1,0 +1,52 @@
+entity User
+
+entity Department {
+	name String required
+}
+
+entity VirtualMachine {
+	name String required,
+    description String,
+    ip String,
+    hdd String,
+    processor String,
+    ram String
+}
+
+entity OperatingSystem {
+	name String required
+}
+
+entity Project {
+	name String required
+}
+
+enum Environment {
+	DEV, TEST, PROD, STAGING, QA
+}
+
+relationship OneToMany {
+	Department{managers} to User{department}
+}
+
+relationship ManyToOne {
+	User{department} to Department{users}
+}
+
+relationship ManyToOne {
+	VirtualMachine{project} to Project{virtualMachines}
+}
+
+relationship ManyToOne {
+	VirtualMachine{environment} to Environment
+}
+
+relationship ManyToOne {
+	VirtualMachine{operatingSystem} to OperatingSystem
+}
+
+dto * with mapstruct
+
+paginate * with pagination
+
+service all with serviceImpl
