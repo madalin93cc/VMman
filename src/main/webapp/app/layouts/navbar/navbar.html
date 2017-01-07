@@ -1,5 +1,5 @@
 <div ng-show="vm.isAuthenticated()">
-    <nav class="navbar" role="navigation">
+    <nav class="navbar navbar-default nevba navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" ng-click="vm.toggleNavbar()">
@@ -67,7 +67,8 @@
                             <span class="fa fa-user-circle-o"></span>
                             <span class="hidden-sm">
                                 {{vm.account.firstName}} {{vm.account.lastName}}
-                                <span ng-show="vm.account.department">{{vm.account.department.name}}</span>
+                                {{vm.account.department}}
+                                <span ng-show="vm.account.departmentName">{{"(" + vm.account.departmentName + ")"}}</span>
                             </span>
                             <b class="caret"></b>
                         </span>

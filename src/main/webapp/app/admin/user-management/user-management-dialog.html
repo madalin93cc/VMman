@@ -42,10 +42,12 @@
                    ng-show="editForm.password.$error.required">
                     This field is required.
                 </p>
-
                 <p class="help-block"
-                   ng-show="editForm.password.$error.maxlength"
-                >
+                   ng-show="editForm.password.$error.minlength">
+                    This field cannot be shorter than 4 characters.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.password.$error.maxlength">
                     This field cannot be longer than 100 characters.
                 </p>
             </div>

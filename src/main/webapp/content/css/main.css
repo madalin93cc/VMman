@@ -774,3 +774,11 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.navbar a {
+    color: #337ab7 !important;
+}
+
+.well {
+    margin-top: 70px !important;
+}
