@@ -3,6 +3,8 @@ package ro.upb.dai.mcc.vmman.service;
 import ro.upb.dai.mcc.vmman.domain.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ro.upb.dai.mcc.vmman.service.dto.ProjectDTO;
+
 import java.util.List;
 
 /**
@@ -16,15 +18,15 @@ public interface ProjectService {
      * @param project the entity to save
      * @return the persisted entity
      */
-    Project save(Project project);
+    ProjectDTO save(Project project);
 
     /**
      *  Get all the projects.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<Project> findAll(Pageable pageable);
+    Page<ProjectDTO> findAll(Pageable pageable);
 
     /**
      *  Get the "id" project.
@@ -32,7 +34,7 @@ public interface ProjectService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    Project findOne(Long id);
+    ProjectDTO findOne(Long id);
 
     /**
      *  Delete the "id" project.

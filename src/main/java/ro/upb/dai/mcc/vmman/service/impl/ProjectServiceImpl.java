@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import ro.upb.dai.mcc.vmman.service.dto.ProjectDTO;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService{
 
     private final Logger log = LoggerFactory.getLogger(ProjectServiceImpl.class);
-    
+
     @Inject
     private ProjectRepository projectRepository;
 
@@ -31,22 +32,22 @@ public class ProjectServiceImpl implements ProjectService{
      * @param project the entity to save
      * @return the persisted entity
      */
-    public Project save(Project project) {
+    public ProjectDTO save(Project project) {
         log.debug("Request to save Project : {}", project);
-        Project result = projectRepository.save(project);
+        ProjectDTO result = new ProjectDTO(projectRepository.save(project));
         return result;
     }
 
     /**
      *  Get all the projects.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<Project> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<ProjectDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Projects");
-        Page<Project> result = projectRepository.findAll(pageable);
+        Page<ProjectDTO> result = projectRepository.findAll(pageable).map(ProjectDTO::new);
         return result;
     }
 
@@ -56,10 +57,10 @@ public class ProjectServiceImpl implements ProjectService{
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
-    public Project findOne(Long id) {
+    @Transactional(readOnly = true)
+    public ProjectDTO findOne(Long id) {
         log.debug("Request to get Project : {}", id);
-        Project project = projectRepository.findOne(id);
+        ProjectDTO project = new ProjectDTO(projectRepository.findOne(id));
         return project;
     }
 

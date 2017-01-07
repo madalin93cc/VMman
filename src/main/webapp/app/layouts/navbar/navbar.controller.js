@@ -25,26 +25,12 @@
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
 
-        vm.selectedMenu = 'dashboard';
-        vm.collapseVar = 0;
-        vm.multiCollapseVar = 0;
+        getAccount();
 
-        vm.check = check;
-        vm.multiCheck = multiCheck;
-        function check(x){
-
-            if(x==vm.collapseVar)
-                vm.collapseVar = 0;
-            else
-                vm.collapseVar = x;
-        }
-
-        function multiCheck(y){
-
-            if(y==vm.multiCollapseVar)
-                vm.multiCollapseVar = 0;
-            else
-                vm.multiCollapseVar = y;
+        function getAccount() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+            });
         }
 
         function login() {

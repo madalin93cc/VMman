@@ -3,6 +3,7 @@ package ro.upb.dai.mcc.vmman.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.service.DepartmentService;
+import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
 
@@ -31,7 +32,7 @@ import java.util.Optional;
 public class DepartmentResource {
 
     private final Logger log = LoggerFactory.getLogger(DepartmentResource.class);
-        
+
     @Inject
     private DepartmentService departmentService;
 
@@ -44,12 +45,12 @@ public class DepartmentResource {
      */
     @PostMapping("/departments")
     @Timed
-    public ResponseEntity<Department> createDepartment(@Valid @RequestBody Department department) throws URISyntaxException {
+    public ResponseEntity<DepartmentDTO> createDepartment(@Valid @RequestBody Department department) throws URISyntaxException {
         log.debug("REST request to save Department : {}", department);
         if (department.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("department", "idexists", "A new department cannot already have an ID")).body(null);
         }
-        Department result = departmentService.save(department);
+        DepartmentDTO result = departmentService.save(department);
         return ResponseEntity.created(new URI("/api/departments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("department", result.getId().toString()))
             .body(result);
@@ -66,12 +67,12 @@ public class DepartmentResource {
      */
     @PutMapping("/departments")
     @Timed
-    public ResponseEntity<Department> updateDepartment(@Valid @RequestBody Department department) throws URISyntaxException {
+    public ResponseEntity<DepartmentDTO> updateDepartment(@Valid @RequestBody Department department) throws URISyntaxException {
         log.debug("REST request to update Department : {}", department);
         if (department.getId() == null) {
             return createDepartment(department);
         }
-        Department result = departmentService.save(department);
+        DepartmentDTO result = departmentService.save(department);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("department", department.getId().toString()))
             .body(result);
@@ -86,10 +87,10 @@ public class DepartmentResource {
      */
     @GetMapping("/departments")
     @Timed
-    public ResponseEntity<List<Department>> getAllDepartments(@ApiParam Pageable pageable)
+    public ResponseEntity<List<DepartmentDTO>> getAllDepartments(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Departments");
-        Page<Department> page = departmentService.findAll(pageable);
+        Page<DepartmentDTO> page = departmentService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/departments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -102,9 +103,9 @@ public class DepartmentResource {
      */
     @GetMapping("/departments/{id}")
     @Timed
-    public ResponseEntity<Department> getDepartment(@PathVariable Long id) {
+    public ResponseEntity<DepartmentDTO> getDepartment(@PathVariable Long id) {
         log.debug("REST request to get Department : {}", id);
-        Department department = departmentService.findOne(id);
+        DepartmentDTO department = departmentService.findOne(id);
         return Optional.ofNullable(department)
             .map(result -> new ResponseEntity<>(
                 result,

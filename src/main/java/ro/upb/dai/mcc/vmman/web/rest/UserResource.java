@@ -125,7 +125,7 @@ public class UserResource {
         }
         userService.updateUser(managedUserVM.getId(), managedUserVM.getLogin(), managedUserVM.getFirstName(),
             managedUserVM.getLastName(), managedUserVM.getEmail(), managedUserVM.isActivated(),
-            managedUserVM.getLangKey(), managedUserVM.getAuthorities());
+            managedUserVM.getLangKey(), managedUserVM.getAuthorities(), managedUserVM.getDepartment());
 
         return ResponseEntity.ok()
             .headers(HeaderUtil.createAlert("A user is updated with identifier " + managedUserVM.getLogin(), managedUserVM.getLogin()))
@@ -133,7 +133,7 @@ public class UserResource {
     }
 
     /**
-     * GET  /users : get all users.
+     * GET  /managers : get all managers.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body all users
@@ -153,7 +153,7 @@ public class UserResource {
     }
 
     /**
-     * GET  /managers : get all managers.
+     * GET  /managers : get all users.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body all users

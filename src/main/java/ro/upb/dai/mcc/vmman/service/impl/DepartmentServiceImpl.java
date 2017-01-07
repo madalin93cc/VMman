@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService{
 
     private final Logger log = LoggerFactory.getLogger(DepartmentServiceImpl.class);
-    
+
     @Inject
     private DepartmentRepository departmentRepository;
 
@@ -31,22 +32,22 @@ public class DepartmentServiceImpl implements DepartmentService{
      * @param department the entity to save
      * @return the persisted entity
      */
-    public Department save(Department department) {
+    public DepartmentDTO save(Department department) {
         log.debug("Request to save Department : {}", department);
-        Department result = departmentRepository.save(department);
+        DepartmentDTO result = new DepartmentDTO(departmentRepository.save(department));
         return result;
     }
 
     /**
      *  Get all the departments.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<Department> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<DepartmentDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Departments");
-        Page<Department> result = departmentRepository.findAll(pageable);
+        Page<DepartmentDTO> result = departmentRepository.findAll(pageable).map(DepartmentDTO::new);
         return result;
     }
 
@@ -56,10 +57,10 @@ public class DepartmentServiceImpl implements DepartmentService{
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
-    public Department findOne(Long id) {
+    @Transactional(readOnly = true)
+    public DepartmentDTO findOne(Long id) {
         log.debug("Request to get Department : {}", id);
-        Department department = departmentRepository.findOne(id);
+        DepartmentDTO department = new DepartmentDTO(departmentRepository.findOne(id));
         return department;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class VirtualMachineServiceImpl implements VirtualMachineService{
 
     private final Logger log = LoggerFactory.getLogger(VirtualMachineServiceImpl.class);
-    
+
     @Inject
     private VirtualMachineRepository virtualMachineRepository;
 
@@ -31,22 +32,22 @@ public class VirtualMachineServiceImpl implements VirtualMachineService{
      * @param virtualMachine the entity to save
      * @return the persisted entity
      */
-    public VirtualMachine save(VirtualMachine virtualMachine) {
+    public VirtualMachineDTO save(VirtualMachine virtualMachine) {
         log.debug("Request to save VirtualMachine : {}", virtualMachine);
-        VirtualMachine result = virtualMachineRepository.save(virtualMachine);
+        VirtualMachineDTO result = new VirtualMachineDTO(virtualMachineRepository.save(virtualMachine));
         return result;
     }
 
     /**
      *  Get all the virtualMachines.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
-    public Page<VirtualMachine> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<VirtualMachineDTO> findAll(Pageable pageable) {
         log.debug("Request to get all VirtualMachines");
-        Page<VirtualMachine> result = virtualMachineRepository.findAll(pageable);
+        Page<VirtualMachineDTO> result = virtualMachineRepository.findAll(pageable).map(VirtualMachineDTO::new);
         return result;
     }
 
@@ -56,10 +57,10 @@ public class VirtualMachineServiceImpl implements VirtualMachineService{
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
-    public VirtualMachine findOne(Long id) {
+    @Transactional(readOnly = true)
+    public VirtualMachineDTO findOne(Long id) {
         log.debug("Request to get VirtualMachine : {}", id);
-        VirtualMachine virtualMachine = virtualMachineRepository.findOne(id);
+        VirtualMachineDTO virtualMachine = new VirtualMachineDTO(virtualMachineRepository.findOne(id));
         return virtualMachine;
     }
 

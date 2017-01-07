@@ -5,12 +5,13 @@
         .module('vMmanApp')
         .controller('UserManagementDialogController',UserManagementDialogController);
 
-    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User'];
+    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User', 'Department'];
 
-    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User) {
+    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User, Department) {
         var vm = this;
 
         vm.authorities = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER'];
+        vm.departments = Department.query();
         vm.clear = clear;
         vm.languages = null;
         vm.save = save;

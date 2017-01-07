@@ -3,6 +3,7 @@ package ro.upb.dai.mcc.vmman.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
 import ro.upb.dai.mcc.vmman.service.VirtualMachineService;
+import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
 
@@ -31,7 +32,7 @@ import java.util.Optional;
 public class VirtualMachineResource {
 
     private final Logger log = LoggerFactory.getLogger(VirtualMachineResource.class);
-        
+
     @Inject
     private VirtualMachineService virtualMachineService;
 
@@ -44,12 +45,12 @@ public class VirtualMachineResource {
      */
     @PostMapping("/virtual-machines")
     @Timed
-    public ResponseEntity<VirtualMachine> createVirtualMachine(@Valid @RequestBody VirtualMachine virtualMachine) throws URISyntaxException {
+    public ResponseEntity<VirtualMachineDTO> createVirtualMachine(@Valid @RequestBody VirtualMachine virtualMachine) throws URISyntaxException {
         log.debug("REST request to save VirtualMachine : {}", virtualMachine);
         if (virtualMachine.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("virtualMachine", "idexists", "A new virtualMachine cannot already have an ID")).body(null);
         }
-        VirtualMachine result = virtualMachineService.save(virtualMachine);
+        VirtualMachineDTO result = virtualMachineService.save(virtualMachine);
         return ResponseEntity.created(new URI("/api/virtual-machines/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("virtualMachine", result.getId().toString()))
             .body(result);
@@ -66,12 +67,12 @@ public class VirtualMachineResource {
      */
     @PutMapping("/virtual-machines")
     @Timed
-    public ResponseEntity<VirtualMachine> updateVirtualMachine(@Valid @RequestBody VirtualMachine virtualMachine) throws URISyntaxException {
+    public ResponseEntity<VirtualMachineDTO> updateVirtualMachine(@Valid @RequestBody VirtualMachine virtualMachine) throws URISyntaxException {
         log.debug("REST request to update VirtualMachine : {}", virtualMachine);
         if (virtualMachine.getId() == null) {
             return createVirtualMachine(virtualMachine);
         }
-        VirtualMachine result = virtualMachineService.save(virtualMachine);
+        VirtualMachineDTO result = virtualMachineService.save(virtualMachine);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("virtualMachine", virtualMachine.getId().toString()))
             .body(result);
@@ -86,10 +87,10 @@ public class VirtualMachineResource {
      */
     @GetMapping("/virtual-machines")
     @Timed
-    public ResponseEntity<List<VirtualMachine>> getAllVirtualMachines(@ApiParam Pageable pageable)
+    public ResponseEntity<List<VirtualMachineDTO>> getAllVirtualMachines(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of VirtualMachines");
-        Page<VirtualMachine> page = virtualMachineService.findAll(pageable);
+        Page<VirtualMachineDTO> page = virtualMachineService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/virtual-machines");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -102,9 +103,9 @@ public class VirtualMachineResource {
      */
     @GetMapping("/virtual-machines/{id}")
     @Timed
-    public ResponseEntity<VirtualMachine> getVirtualMachine(@PathVariable Long id) {
+    public ResponseEntity<VirtualMachineDTO> getVirtualMachine(@PathVariable Long id) {
         log.debug("REST request to get VirtualMachine : {}", id);
-        VirtualMachine virtualMachine = virtualMachineService.findOne(id);
+        VirtualMachineDTO virtualMachine = virtualMachineService.findOne(id);
         return Optional.ofNullable(virtualMachine)
             .map(result -> new ResponseEntity<>(
                 result,

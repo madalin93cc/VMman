@@ -1,12 +1,15 @@
 package ro.upb.dai.mcc.vmman.service;
 
 import ro.upb.dai.mcc.vmman.domain.Authority;
+import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
 import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
+import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
 import ro.upb.dai.mcc.vmman.repository.PersistentTokenRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.security.SecurityUtils;
+import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 import ro.upb.dai.mcc.vmman.service.util.RandomUtil;
 import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
@@ -41,6 +44,9 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+    @Inject
+    private DepartmentRepository departmentRepository;
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -128,6 +134,9 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
+        if (managedUserVM.getDepartment() != null) {
+            user.setDepartment(departmentRepository.findOne(managedUserVM.getDepartment().getId()));
+        }
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -144,7 +153,7 @@ public class UserService {
     }
 
     public void updateUser(Long id, String login, String firstName, String lastName, String email,
-        boolean activated, String langKey, Set<String> authorities) {
+                           boolean activated, String langKey, Set<String> authorities, DepartmentDTO departmentDTO) {
 
         Optional.of(userRepository
             .findOne(id))
@@ -160,6 +169,9 @@ public class UserService {
                 authorities.forEach(
                     authority -> managedAuthorities.add(authorityRepository.findOne(authority))
                 );
+                if (departmentDTO != null) {
+                    user.setDepartment(departmentRepository.findOne(departmentDTO.getId()));
+                }
                 log.debug("Changed Information for User: {}", user);
             });
     }

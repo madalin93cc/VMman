@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .controller('ProjectDetailController', ProjectDetailController);
 
-    ProjectDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Project', 'VirtualMachine'];
+    ProjectDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Project'];
 
-    function ProjectDetailController($scope, $rootScope, $stateParams, previousState, entity, Project, VirtualMachine) {
+    function ProjectDetailController($scope, $rootScope, $stateParams, previousState, entity, Project) {
         var vm = this;
 
         vm.project = entity;

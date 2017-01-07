@@ -29,7 +29,7 @@
                     <td><a ui-sref="department-detail({id:department.id})">{{department.id}}</a></td>
                     <td>{{department.name}}</td>
                     <td>
-                        <a ui-sref="user-management-detail({login:department.manager.login})">{{department.manager.login}}</a>
+                        <a ui-sref="user-management-detail({login:department.manager.login})">{{department.manager.firstName + " " + department.manager.lastName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

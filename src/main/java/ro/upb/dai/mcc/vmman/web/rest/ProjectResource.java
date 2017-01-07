@@ -3,6 +3,7 @@ package ro.upb.dai.mcc.vmman.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import ro.upb.dai.mcc.vmman.domain.Project;
 import ro.upb.dai.mcc.vmman.service.ProjectService;
+import ro.upb.dai.mcc.vmman.service.dto.ProjectDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
 
@@ -31,7 +32,7 @@ import java.util.Optional;
 public class ProjectResource {
 
     private final Logger log = LoggerFactory.getLogger(ProjectResource.class);
-        
+
     @Inject
     private ProjectService projectService;
 
@@ -44,12 +45,12 @@ public class ProjectResource {
      */
     @PostMapping("/projects")
     @Timed
-    public ResponseEntity<Project> createProject(@Valid @RequestBody Project project) throws URISyntaxException {
+    public ResponseEntity<ProjectDTO> createProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to save Project : {}", project);
         if (project.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("project", "idexists", "A new project cannot already have an ID")).body(null);
         }
-        Project result = projectService.save(project);
+        ProjectDTO result = projectService.save(project);
         return ResponseEntity.created(new URI("/api/projects/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("project", result.getId().toString()))
             .body(result);
@@ -66,12 +67,12 @@ public class ProjectResource {
      */
     @PutMapping("/projects")
     @Timed
-    public ResponseEntity<Project> updateProject(@Valid @RequestBody Project project) throws URISyntaxException {
+    public ResponseEntity<ProjectDTO> updateProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to update Project : {}", project);
         if (project.getId() == null) {
             return createProject(project);
         }
-        Project result = projectService.save(project);
+        ProjectDTO result = projectService.save(project);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("project", project.getId().toString()))
             .body(result);
@@ -86,10 +87,10 @@ public class ProjectResource {
      */
     @GetMapping("/projects")
     @Timed
-    public ResponseEntity<List<Project>> getAllProjects(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ProjectDTO>> getAllProjects(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Projects");
-        Page<Project> page = projectService.findAll(pageable);
+        Page<ProjectDTO> page = projectService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/projects");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -102,9 +103,9 @@ public class ProjectResource {
      */
     @GetMapping("/projects/{id}")
     @Timed
-    public ResponseEntity<Project> getProject(@PathVariable Long id) {
+    public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
         log.debug("REST request to get Project : {}", id);
-        Project project = projectService.findOne(id);
+        ProjectDTO project = projectService.findOne(id);
         return Optional.ofNullable(project)
             .map(result -> new ResponseEntity<>(
                 result,

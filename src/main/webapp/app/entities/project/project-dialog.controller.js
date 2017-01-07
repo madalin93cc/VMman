@@ -5,16 +5,15 @@
         .module('vMmanApp')
         .controller('ProjectDialogController', ProjectDialogController);
 
-    ProjectDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Project', 'VirtualMachine', 'Department'];
+    ProjectDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Project', 'Department'];
 
-    function ProjectDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Project, VirtualMachine, Department) {
+    function ProjectDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Project, Department) {
         var vm = this;
 
         vm.project = entity;
         vm.departments = Department.query();
         vm.clear = clear;
         vm.save = save;
-        vm.virtualmachines = VirtualMachine.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

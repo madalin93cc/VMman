@@ -9,6 +9,10 @@
         <dd>{{vm.user.lastName}}</dd>
         <dt><span>Email</span></dt>
         <dd>{{vm.user.email}}</dd>
+        <dt><span>Department</span></dt>
+        <dd>
+            <a ui-sref="department-detail({id:vm.user.department.id})">{{vm.user.department.name}}</a>
+        </dd>
         <dt><span>Activated</span></dt>
         <dd>{{vm.user.activated}}</dd>
         <dt><span>Created By</span></dt>
@@ -19,7 +23,7 @@
         <dd>{{vm.user.lastModifiedBy}}</dd>
         <dt><span>Last Modified Date</span></dt>
         <dd>{{vm.user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
-        <dt><span>Profiles</span></dt>
+        <dt><span>Roles</span></dt>
         <dd>
             <ul class="list-unstyled">
                 <li ng-repeat="authority in vm.user.authorities"><span>{{authority}}</span></li>

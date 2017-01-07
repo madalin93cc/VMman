@@ -1,12 +1,13 @@
 package ro.upb.dai.mcc.vmman.web.rest.vm;
 
-import java.time.ZonedDateTime;
-
-import java.util.Set;
-
+import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 import ro.upb.dai.mcc.vmman.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 /**
  * View Model extending the UserDTO, which is meant to be used in the user management UI.
@@ -26,6 +27,8 @@ public class ManagedUserVM extends UserDTO {
 
     private ZonedDateTime lastModifiedDate;
 
+    private DepartmentDTO department;
+
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
@@ -40,11 +43,12 @@ public class ManagedUserVM extends UserDTO {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.password = null;
+        this.department = (user.getDepartment() == null)? null: new DepartmentDTO(user.getDepartment());
     }
 
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String langKey, Set<String> authorities,
-                         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate) {
+                         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, Department department) {
         super(login, firstName, lastName, email, activated, langKey, authorities);
         this.id = id;
         this.createdBy = createdBy;
@@ -52,6 +56,7 @@ public class ManagedUserVM extends UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.password = password;
+        this.department = new DepartmentDTO(department);
     }
 
     public Long getId() {
@@ -97,6 +102,14 @@ public class ManagedUserVM extends UserDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public DepartmentDTO getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentDTO department) {
+        this.department = department;
     }
 
     @Override
