@@ -23,6 +23,7 @@
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
+        vm.hasRole = hasRole;
         vm.$state = $state;
 
 
@@ -47,6 +48,10 @@
             collapseNavbar();
             Auth.logout();
             $state.go('login');
+        }
+
+        function hasRole(role) {
+            return vm.account.authorities.indexOf(role) !== -1;
         }
 
         function toggleNavbar() {

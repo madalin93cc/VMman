@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .controller('VirtualMachineController', VirtualMachineController);
 
-    VirtualMachineController.$inject = ['$scope', '$state', 'VirtualMachine', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    VirtualMachineController.$inject = ['$scope', '$state', 'VirtualMachine', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'account'];
 
-    function VirtualMachineController ($scope, $state, VirtualMachine, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function VirtualMachineController ($scope, $state, VirtualMachine, ParseLinks, AlertService, paginationConstants, pagingParams, account) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -15,8 +15,14 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.account = account;
+        vm.hasRole = hasRole;
 
         loadAll();
+
+        function hasRole(role) {
+            return vm.account.authorities.indexOf(role) !== -1;
+        }
 
         function loadAll () {
             VirtualMachine.query({

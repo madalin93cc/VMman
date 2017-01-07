@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/virtual-machine?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER'],
                 pageTitle: 'VirtualMachines'
             },
             views: {
@@ -44,13 +44,18 @@
                         search: $stateParams.search
                     };
                 }],
+                account: ['Principal', function (Principal) {
+                    return Principal.identity().then(function(account) {
+                        return account;
+                    });
+                }]
             }
         })
         .state('virtual-machine-detail', {
             parent: 'entity',
             url: '/virtual-machine/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER'],
                 pageTitle: 'VirtualMachine'
             },
             views: {
@@ -71,6 +76,11 @@
                         url: $state.href($state.current.name, $state.params)
                     };
                     return currentStateData;
+                }],
+                account: ['Principal', function (Principal) {
+                    return Principal.identity().then(function(account) {
+                        return account;
+                    });
                 }]
             }
         })
@@ -78,7 +88,7 @@
             parent: 'virtual-machine-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -103,7 +113,7 @@
             parent: 'virtual-machine',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -137,7 +147,7 @@
             parent: 'virtual-machine',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -162,7 +172,7 @@
             parent: 'virtual-machine',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

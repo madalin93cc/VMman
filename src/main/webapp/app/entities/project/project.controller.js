@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = ['$scope', '$state', 'Project', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    ProjectController.$inject = ['$scope', '$state', 'Project', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'account'];
 
-    function ProjectController ($scope, $state, Project, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function ProjectController ($scope, $state, Project, ParseLinks, AlertService, paginationConstants, pagingParams, account) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -15,8 +15,13 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-
+        vm.account = account;
+        vm.hasRole = hasRole;
         loadAll();
+
+        function hasRole(role) {
+            return vm.account.authorities.indexOf(role) !== -1;
+        }
 
         function loadAll () {
             Project.query({

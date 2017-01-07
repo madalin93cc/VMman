@@ -37,8 +37,11 @@
             <a ui-sref="project-detail({id:vm.virtualMachine.project.id})">{{vm.virtualMachine.project.name}}</a>
         </dd>
         <dt><span>Operating System</span></dt>
-        <dd>
+        <dd ng-show="!vm.hasRole('ROLE_USER')">
             <a ui-sref="operating-system-detail({id:vm.virtualMachine.operatingSystem.id})">{{vm.virtualMachine.operatingSystem.name}}</a>
+        </dd>
+        <dd ng-show="vm.hasRole('ROLE_USER')">
+            {{vm.virtualMachine.operatingSystem.name}}
         </dd>
     </dl>
 
@@ -48,7 +51,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="virtual-machine-detail.edit({id:vm.virtualMachine.id})" class="btn btn-primary">
+    <button ng-show="!vm.hasRole('ROLE_USER')" type="button" ui-sref="virtual-machine-detail.edit({id:vm.virtualMachine.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm"> Edit</span>
     </button>

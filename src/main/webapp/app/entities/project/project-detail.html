@@ -9,8 +9,11 @@
             <span>{{vm.project.name}}</span>
         </dd>
         <dt><span>Department</span></dt>
-        <dd>
+        <dd ng-show="!vm.hasRole('ROLE_USER')">
             <a ui-sref="department-detail({id:vm.project.department.id})">{{vm.project.department.name}}</a>
+        </dd>
+        <dd ng-show="vm.hasRole('ROLE_USER')">
+            {{vm.project.department.name}}
         </dd>
     </dl>
 
@@ -20,7 +23,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="project-detail.edit({id:vm.project.id})" class="btn btn-primary">
+    <button ng-show="!vm.hasRole('ROLE_USER')" type="button" ui-sref="project-detail.edit({id:vm.project.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm"> Edit</span>
     </button>

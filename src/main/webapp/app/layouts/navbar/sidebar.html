@@ -1,11 +1,10 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav in" id="side-menu">
-            <!--{{vm.account}}-->
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-show="!vm.hasRole('ROLE_USER')">
                 <a ui-sref="user-management"><i class="fa fa-user fa-fw"></i> Users</a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-show="!vm.hasRole('ROLE_USER')">
                 <a ui-sref="department"><i class="fa fa-users fa-fw"></i> Departments<span></span></a>
             </li>
             <li ui-sref-active="active">
@@ -14,7 +13,7 @@
             <li ui-sref-active="active">
                 <a ui-sref="virtual-machine"><i class="fa fa-server fa-fw"></i> Virtual Machines</a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-show="vm.hasRole('ROLE_ADMIN')">
                 <a ui-sref="operating-system"><i class="fa fa-desktop fa-fw"></i> Operating Systems</a>
             </li>
         </ul>
