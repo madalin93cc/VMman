@@ -42,10 +42,10 @@
                     <td>{{virtualMachine.processor}}</td>
                     <td>{{virtualMachine.ram}}</td>
                     <td>
-                        <a ui-sref="project-detail({id:virtualMachine.project.id})">{{virtualMachine.project.id}}</a>
+                        <a ui-sref="project-detail({id:virtualMachine.project.id})">{{virtualMachine.project.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="operating-system-detail({id:virtualMachine.operatingSystem.id})">{{virtualMachine.operatingSystem.id}}</a>
+                        <a ui-sref="operating-system-detail({id:virtualMachine.operatingSystem.id})">{{virtualMachine.operatingSystem.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

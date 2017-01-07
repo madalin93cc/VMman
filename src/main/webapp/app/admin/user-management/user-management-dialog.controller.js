@@ -10,13 +10,11 @@
     function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User) {
         var vm = this;
 
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER'];
         vm.clear = clear;
         vm.languages = null;
         vm.save = save;
         vm.user = entity;
-
-
 
         function clear () {
             $uibModalInstance.dismiss('cancel');

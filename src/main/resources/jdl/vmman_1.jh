@@ -27,7 +27,7 @@ enum Environment {
 	DEV, TEST, PROD, STAGING, QA
 }
 
-relationship OneToMany {
+relationship ManyToOne {
 	Department{managers} to VMUser
 }
 
@@ -37,6 +37,10 @@ relationship ManyToOne {
 
 relationship ManyToOne {
 	VirtualMachine{project} to Project{virtualMachines}
+}
+
+relationship ManyToOne {
+	Project{department} to Department{projects}
 }
 
 relationship ManyToOne {

@@ -30,6 +30,9 @@ public class Project implements Serializable {
     @JsonIgnore
     private Set<VirtualMachine> virtualMachines = new HashSet<>();
 
+    @ManyToOne
+    private Department department;
+
     public Long getId() {
         return id;
     }
@@ -74,6 +77,20 @@ public class Project implements Serializable {
 
     public void setVirtualMachines(Set<VirtualMachine> virtualMachines) {
         this.virtualMachines = virtualMachines;
+    }
+
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Project project(Department department) {
+        this.department = department;
+        return this;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override

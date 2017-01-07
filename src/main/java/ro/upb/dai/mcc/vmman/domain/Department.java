@@ -34,6 +34,10 @@ public class Department implements Serializable {
     @JsonIgnore
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy = "department")
+    @JsonIgnore
+    private Set<Project> projects = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -103,6 +107,32 @@ public class Department implements Serializable {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public Department projects(Set<Project> projects) {
+        this.projects = projects;
+        return this;
+    }
+
+    public Department addProject(Project project) {
+        projects.add(project);
+        project.setDepartment(this);
+        return this;
+    }
+
+    public Department removeProjects(Project project) {
+        projects.remove(project);
+        project.setDepartment(null);
+        return this;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     @Override

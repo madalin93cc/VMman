@@ -8,11 +8,11 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.virtualMachine.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.virtualMachine.id" readonly />
-        </div>
+        <!--<div class="form-group" ng-show="vm.virtualMachine.id">-->
+            <!--<label for="id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="vm.virtualMachine.id" readonly />-->
+        <!--</div>-->
         <div class="form-group">
             <label class="control-label" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
@@ -68,13 +68,13 @@
 
         <div class="form-group">
             <label for="field_project">Project</label>
-            <select class="form-control" id="field_project" name="project" ng-model="vm.virtualMachine.project" ng-options="project as project.id for project in vm.projects track by project.id">
+            <select class="form-control" id="field_project" name="project" ng-model="vm.virtualMachine.project" ng-options="project as project.name for project in vm.projects track by project.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label for="field_operatingSystem">Operating System</label>
-            <select class="form-control" id="field_operatingSystem" name="operatingSystem" ng-model="vm.virtualMachine.operatingSystem" ng-options="operatingSystem as operatingSystem.id for operatingSystem in vm.operatingsystems track by operatingSystem.id">
+            <select class="form-control" id="field_operatingSystem" name="operatingSystem" ng-model="vm.virtualMachine.operatingSystem" ng-options="operatingSystem as operatingSystem.name for operatingSystem in vm.operatingsystems track by operatingSystem.id">
                 <option value=""></option>
             </select>
         </div>

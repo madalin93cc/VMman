@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .factory('LoginService', LoginService);
 
-    LoginService.$inject = ['$uibModal'];
+    LoginService.$inject = ['$uibModal', '$state'];
 
-    function LoginService ($uibModal) {
+    function LoginService ($uibModal, $state) {
         var service = {
             open: open
         };
@@ -20,17 +20,18 @@
         return service;
 
         function open () {
-            if (modalInstance !== null) return;
-            modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'app/components/login/login.html',
-                controller: 'LoginController',
-                controllerAs: 'vm'
-            });
-            modalInstance.result.then(
-                resetModal,
-                resetModal
-            );
+            // if (modalInstance !== null) return;
+            // modalInstance = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'app/components/login/login.html',
+            //     controller: 'LoginController',
+            //     controllerAs: 'vm'
+            // });
+            // modalInstance.result.then(
+            //     resetModal,
+            //     resetModal
+            // );
+            $state.go('login');
         }
     }
 })();

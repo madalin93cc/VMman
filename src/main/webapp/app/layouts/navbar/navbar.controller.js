@@ -12,6 +12,7 @@
 
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
+        vm.sidebarUrl = "app/layouts/navbar/sidebar.html";
 
         ProfileService.getProfileInfo().then(function(response) {
             vm.inProduction = response.inProduction;
@@ -24,6 +25,28 @@
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
 
+        vm.selectedMenu = 'dashboard';
+        vm.collapseVar = 0;
+        vm.multiCollapseVar = 0;
+
+        vm.check = check;
+        vm.multiCheck = multiCheck;
+        function check(x){
+
+            if(x==vm.collapseVar)
+                vm.collapseVar = 0;
+            else
+                vm.collapseVar = x;
+        }
+
+        function multiCheck(y){
+
+            if(y==vm.multiCollapseVar)
+                vm.multiCollapseVar = 0;
+            else
+                vm.multiCollapseVar = y;
+        }
+
         function login() {
             collapseNavbar();
             LoginService.open();
@@ -32,7 +55,7 @@
         function logout() {
             collapseNavbar();
             Auth.logout();
-            $state.go('home');
+            $state.go('login');
         }
 
         function toggleNavbar() {

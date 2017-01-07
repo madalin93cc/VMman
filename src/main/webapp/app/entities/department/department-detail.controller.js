@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .controller('DepartmentDetailController', DepartmentDetailController);
 
-    DepartmentDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Department', 'VMUser'];
+    DepartmentDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Department', 'User'];
 
-    function DepartmentDetailController($scope, $rootScope, $stateParams, previousState, entity, Department, VMUser) {
+    function DepartmentDetailController($scope, $rootScope, $stateParams, previousState, entity, Department, User) {
         var vm = this;
 
         vm.department = entity;

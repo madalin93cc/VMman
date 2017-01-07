@@ -5,12 +5,13 @@
         .module('vMmanApp')
         .controller('ProjectDialogController', ProjectDialogController);
 
-    ProjectDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Project', 'VirtualMachine'];
+    ProjectDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Project', 'VirtualMachine', 'Department'];
 
-    function ProjectDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Project, VirtualMachine) {
+    function ProjectDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Project, VirtualMachine, Department) {
         var vm = this;
 
         vm.project = entity;
+        vm.departments = Department.query();
         vm.clear = clear;
         vm.save = save;
         vm.virtualmachines = VirtualMachine.query();

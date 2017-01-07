@@ -5,15 +5,15 @@
         .module('vMmanApp')
         .controller('DepartmentDialogController', DepartmentDialogController);
 
-    DepartmentDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Department', 'VMUser'];
+    DepartmentDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Department', 'User'];
 
-    function DepartmentDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Department, VMUser) {
+    function DepartmentDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Department, User) {
         var vm = this;
 
         vm.department = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.vmusers = VMUser.query();
+        vm.Users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
