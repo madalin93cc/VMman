@@ -26,9 +26,8 @@ public class Department implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "department")
-    @JsonIgnore
-    private Set<User> managers = new HashSet<>();
+    @ManyToOne
+    private User manager;
 
     @OneToMany(mappedBy = "department")
     @JsonIgnore
@@ -59,29 +58,17 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    public Set<User> getManagers() {
-        return managers;
+    public User getManager() {
+        return manager;
     }
 
-    public Department managers(Set<User> users) {
-        this.managers = users;
+    public Department manager(User user) {
+        this.manager = user;
         return this;
     }
 
-    public Department addManagers(User user) {
-        managers.add(user);
-        user.setDepartment(this);
-        return this;
-    }
-
-    public Department removeManagers(User user) {
-        managers.remove(user);
-        user.setDepartment(null);
-        return this;
-    }
-
-    public void setManagers(Set<User> users) {
-        this.managers = users;
+    public void setManager(User user) {
+        this.manager = user;
     }
 
     public Set<User> getUsers() {

@@ -28,7 +28,7 @@ enum Environment {
 }
 
 relationship ManyToOne {
-	Department{managers} to VMUser
+	Department{manager} to VMUser
 }
 
 relationship ManyToOne {

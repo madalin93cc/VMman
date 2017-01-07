@@ -14,7 +14,7 @@
         vm.clear = clear;
         vm.save = save;
         vm.Users = User.query();
-
+        vm.managers = User.query();
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });
