@@ -67,6 +67,7 @@
                             <span class="fa fa-user-circle-o"></span>
                             <span class="hidden-sm">
                                 {{vm.account.firstName}} {{vm.account.lastName}}
+                                <span ng-show="vm.account.department">{{vm.account.department.name}}</span>
                             </span>
                             <b class="caret"></b>
                         </span>

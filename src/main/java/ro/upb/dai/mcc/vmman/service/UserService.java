@@ -111,7 +111,7 @@ public class UserService {
         return newUser;
     }
 
-    public User createUser(ManagedUserVM managedUserVM) {
+    public ManagedUserVM createUser(ManagedUserVM managedUserVM) {
         User user = new User();
         user.setLogin(managedUserVM.getLogin());
         user.setFirstName(managedUserVM.getFirstName());
@@ -129,7 +129,7 @@ public class UserService {
             );
             user.setAuthorities(authorities);
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode(managedUserVM.getPassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
@@ -139,7 +139,7 @@ public class UserService {
         }
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
-        return user;
+        return new ManagedUserVM(user);
     }
 
     public void updateUser(String firstName, String lastName, String email, String langKey) {
