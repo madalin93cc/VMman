@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .controller('DepartmentController', DepartmentController);
 
-    DepartmentController.$inject = ['$scope', '$state', 'Department', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    DepartmentController.$inject = ['$scope', '$state', 'Department', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'account'];
 
-    function DepartmentController ($scope, $state, Department, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function DepartmentController ($scope, $state, Department, ParseLinks, AlertService, paginationConstants, pagingParams, account) {
         var vm = this;
 
         vm.loadPage = loadPage;
@@ -15,8 +15,13 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
-
+        vm.hasRole = hasRole;
+        vm.account = account;
         loadAll();
+
+        function hasRole(role) {
+            return vm.account.authorities.indexOf(role) !== -1;
+        }
 
         function loadAll () {
             Department.query({

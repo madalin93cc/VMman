@@ -44,6 +44,11 @@
                         search: $stateParams.search
                     };
                 }],
+                account: ['Principal', function (Principal) {
+                    return Principal.identity().then(function(account) {
+                        return account;
+                    });
+                }]
             }
         })
         .state('department-detail', {

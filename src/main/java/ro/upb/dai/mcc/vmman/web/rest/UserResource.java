@@ -1,8 +1,13 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
+import org.springframework.data.domain.PageImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import ro.upb.dai.mcc.vmman.config.Constants;
 import com.codahale.metrics.annotation.Timed;
+import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.MailService;
@@ -66,6 +71,8 @@ public class UserResource {
     @Inject
     private UserService userService;
 
+    @Inject
+    private AuthorityRepository authorityRepository;
     /**
      * POST  /users  : Creates a new user.
      * <p>
@@ -161,9 +168,23 @@ public class UserResource {
      */
     @GetMapping("/users")
     @Timed
+    @Transactional(readOnly = true)
     public ResponseEntity<List<ManagedUserVM>> getAllUsers(@ApiParam Pageable pageable)
         throws URISyntaxException {
-        Page<User> page = userRepository.findAllWithAuthorities(pageable);
+
+        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        Page<User> page = null;
+        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+            page = userRepository.findAllWithAuthorities(pageable);
+        } else {
+            Department department = user.getDepartment();
+            if (department != null) {
+                page = userRepository.findAllWithAuthoritiesByDepartment(department, pageable);
+            } else {
+                page = new PageImpl<>(Collections.emptyList());
+            }
+        }
+
         List<ManagedUserVM> managedUserVMs = page.getContent().stream()
             .map(ManagedUserVM::new)
             .collect(Collectors.toList());

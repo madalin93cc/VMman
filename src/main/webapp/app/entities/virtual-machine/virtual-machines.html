@@ -44,10 +44,10 @@
                     <td>
                         <a ui-sref="project-detail({id:virtualMachine.project.id})">{{virtualMachine.project.name}}</a>
                     </td>
-                    <td ng-show="!vm.hasRole('ROLE_USER')">
+                    <td ng-show="vm.hasRole('ROLE_ADMIN')">
                         <a ui-sref="operating-system-detail({id:virtualMachine.operatingSystem.id})">{{virtualMachine.operatingSystem.name}}</a>
                     </td>
-                    <td ng-show="vm.hasRole('ROLE_USER')">
+                    <td ng-show="!vm.hasRole('ROLE_ADMIN')">
                         {{virtualMachine.operatingSystem.name}}
                     </td>
                     <td class="text-right">

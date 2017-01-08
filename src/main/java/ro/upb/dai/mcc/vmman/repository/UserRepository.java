@@ -1,5 +1,7 @@
 package ro.upb.dai.mcc.vmman.repository;
 
+import org.springframework.data.repository.query.Param;
+import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
 
 import java.time.ZonedDateTime;
@@ -29,4 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select distinct user from User user left join fetch user.authorities",
         countQuery = "select count(user) from User user")
     Page<User> findAllWithAuthorities(Pageable pageable);
+    @Query(value = "select distinct user from User user left join fetch user.authorities where user.department = :department",
+        countQuery = "select count(user) from User user where user.department = :department")
+    Page<User> findAllWithAuthoritiesByDepartment(@Param("department") Department department, Pageable pageable);
 }

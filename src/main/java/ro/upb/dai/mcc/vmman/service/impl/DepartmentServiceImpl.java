@@ -1,5 +1,11 @@
 package ro.upb.dai.mcc.vmman.service.impl;
 
+import org.springframework.data.domain.PageImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
+import ro.upb.dai.mcc.vmman.repository.UserRepository;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.DepartmentService;
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
@@ -12,6 +18,8 @@ import org.springframework.stereotype.Service;
 import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +34,11 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Inject
     private DepartmentRepository departmentRepository;
 
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private AuthorityRepository authorityRepository;
     /**
      * Save a department.
      *
@@ -47,7 +60,19 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Transactional(readOnly = true)
     public Page<DepartmentDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Departments");
-        Page<DepartmentDTO> result = departmentRepository.findAll(pageable).map(DepartmentDTO::new);
+        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        Page<DepartmentDTO> result = null;
+        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+            result = departmentRepository.findAll(pageable).map(DepartmentDTO::new);
+        } else {
+            Department department = user.getDepartment();
+            if (department != null) {
+                DepartmentDTO dept = new DepartmentDTO(departmentRepository.findOne(department.getId()));
+                result = new PageImpl<>(new ArrayList<DepartmentDTO>() {{add(dept);}});
+            } else {
+                result = new PageImpl<>(Collections.emptyList());
+            }
+        }
         return result;
     }
 

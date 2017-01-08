@@ -1,5 +1,12 @@
 package ro.upb.dai.mcc.vmman.service.impl;
 
+import org.springframework.data.domain.PageImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import ro.upb.dai.mcc.vmman.domain.Department;
+import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
+import ro.upb.dai.mcc.vmman.repository.UserRepository;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.VirtualMachineService;
 import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
 import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
@@ -12,6 +19,7 @@ import org.springframework.stereotype.Service;
 import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +34,11 @@ public class VirtualMachineServiceImpl implements VirtualMachineService{
     @Inject
     private VirtualMachineRepository virtualMachineRepository;
 
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private AuthorityRepository authorityRepository;
     /**
      * Save a virtualMachine.
      *
@@ -47,7 +60,18 @@ public class VirtualMachineServiceImpl implements VirtualMachineService{
     @Transactional(readOnly = true)
     public Page<VirtualMachineDTO> findAll(Pageable pageable) {
         log.debug("Request to get all VirtualMachines");
-        Page<VirtualMachineDTO> result = virtualMachineRepository.findAll(pageable).map(VirtualMachineDTO::new);
+        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        Page<VirtualMachineDTO> result = null;
+        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+            result = virtualMachineRepository.findAll(pageable).map(VirtualMachineDTO::new);
+        } else {
+            Department department = user.getDepartment();
+            if (department != null) {
+                result = virtualMachineRepository.findAllByProjectDepartment(pageable, department).map(VirtualMachineDTO::new);
+            } else {
+                result = new PageImpl<>(Collections.emptyList());
+            }
+        }
         return result;
     }
 
