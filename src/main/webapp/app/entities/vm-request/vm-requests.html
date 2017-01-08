@@ -1,0 +1,99 @@
+<div>
+    <h2>Vm Requests</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row" ng-show="!vm.hasRole('ROLE_ADMIN')">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="vm-request.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Vm Request
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="hdd"><span>Hdd</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="processor"><span>Processor</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="ram"><span>Ram</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="approved"><span>Approved</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="created"><span>Created</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="operatingSystem.id"><span>Operating System</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="project.id"><span>Project</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="environment"><span>Environment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="from.id"><span>From</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!--<th jh-sort-by="to.id"><span>To</span> <span class="glyphicon glyphicon-sort"></span></th>-->
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="vmRequest in vm.vmRequests track by vmRequest.id">
+                    <td><a ui-sref="vm-request-detail({id:vmRequest.id})">{{vmRequest.id}}</a></td>
+                    <td>{{vmRequest.name}}</td>
+                    <td>{{vmRequest.description}}</td>
+                    <td>{{vmRequest.hdd}}</td>
+                    <td>{{vmRequest.processor}}</td>
+                    <td>{{vmRequest.ram}}</td>
+                    <td>{{vmRequest.approved}}</td>
+                    <td>{{vmRequest.created}}</td>
+                    <td>
+                        {{vmRequest.operatingSystem.name}}
+                    </td>
+                    <td>
+                        <a ui-sref="project-detail({id:vmRequest.project.id})">{{vmRequest.project.name}}</a>
+                    </td>
+                    <td>{{vmRequest.environment}}</td>
+                    <td>
+                        {{vmRequest.from.firstName + " " + vmRequest.from.lastName}}
+                    </td>
+                    <!--<td>-->
+                        <!--{{vmRequest.to.id}}-->
+                    <!--</td>-->
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="vm-request-detail({id:vmRequest.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button ng-show="!vm.hasRole('ROLE_ADMIN') && !vmRequest.approved"
+                                    type="submit"
+                                    ui-sref="vm-request.edit({id:vmRequest.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button ng-show="!vm.hasRole('ROLE_ADMIN') && !vmRequest.approved"
+                                    type="submit"
+                                    ui-sref="vm-request.delete({id:vmRequest.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button ng-show="(vm.hasRole('ROLE_ADMIN') && !vmRequest.created) || (vm.hasRole('ROLE_MANAGER') && !vmRequest.approved)"
+                                    type="submit"
+                                    ui-sref="vm-request.approve({id:vmRequest.id})"
+                                    class="btn btn-success btn-sm">
+                                <span class="fa fa-thumbs-o-up"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

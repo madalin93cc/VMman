@@ -8,6 +8,7 @@ import com.codahale.metrics.annotation.Timed;
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
 import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
+import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.MailService;
@@ -73,6 +74,9 @@ public class UserResource {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+    @Inject
+    private DepartmentRepository departmentRepository;
     /**
      * POST  /users  : Creates a new user.
      * <p>
@@ -154,6 +158,7 @@ public class UserResource {
         List<ManagedUserVM> managedUserVMs = page.getContent().stream()
             .map(ManagedUserVM::new)
             .filter(p -> p.getAuthorities().contains(AuthoritiesConstants.MANAGER))
+            .filter(p -> departmentRepository.findOneByManagerId(p.getId()) == null)
             .collect(Collectors.toList());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(managedUserVMs, headers, HttpStatus.OK);

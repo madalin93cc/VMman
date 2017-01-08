@@ -1,0 +1,120 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myVmRequestLabel">Create or edit a Vm Request</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" ng-show="vm.vmRequest.id">-->
+            <!--<label for="id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="vm.vmRequest.id" readonly />-->
+        <!--</div>-->
+        <div class="form-group">
+            <label class="control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.vmRequest.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.vmRequest.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_hdd">Hdd</label>
+            <input type="text" class="form-control" name="hdd" id="field_hdd"
+                    ng-model="vm.vmRequest.hdd"
+                    required />
+            <div ng-show="editForm.hdd.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.hdd.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_processor">Processor</label>
+            <input type="text" class="form-control" name="processor" id="field_processor"
+                    ng-model="vm.vmRequest.processor"
+                    required />
+            <div ng-show="editForm.processor.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.processor.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_ram">Ram</label>
+            <input type="text" class="form-control" name="ram" id="field_ram"
+                    ng-model="vm.vmRequest.ram"
+                    required />
+            <div ng-show="editForm.ram.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.ram.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_approved">Approved</label>-->
+            <!--<input type="checkbox" class="form-control" name="approved" id="field_approved"-->
+                    <!--ng-model="vm.vmRequest.approved"-->
+                     <!--/>-->
+        <!--</div>-->
+
+        <div class="form-group">
+            <label for="field_operatingSystem">Operating System</label>
+            <select class="form-control" id="field_operatingSystem" name="operatingSystem" ng-model="vm.vmRequest.operatingSystem" ng-options="operatingSystem as operatingSystem.name for operatingSystem in vm.operatingsystems track by operatingSystem.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_project">Project</label>
+            <select class="form-control" id="field_project" name="project" ng-model="vm.vmRequest.project" ng-options="project as project.name for project in vm.projects track by project.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_environment">Environment</label>
+            <select class="form-control" name="environment" ng-model="vm.vmRequest.environment" id="field_environment">
+                <option value="DEV">DEV</option>
+                <option value="TEST">TEST</option>
+                <option value="PROD">PROD</option>
+                <option value="STAGING">STAGING</option>
+                <option value="QA">QA</option>
+            </select>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label for="field_from">From</label>-->
+            <!--<select class="form-control" id="field_from" name="from" ng-model="vm.vmRequest.from" ng-options="user as user.id for user in vm.users track by user.id">-->
+                <!--<option value=""></option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label for="field_to">To</label>-->
+            <!--<select class="form-control" id="field_to" name="to" ng-model="vm.vmRequest.to" ng-options="user as user.id for user in vm.users track by user.id">-->
+                <!--<option value=""></option>-->
+            <!--</select>-->
+        <!--</div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,66 @@
+
+<div>
+    <h2><span>Vm Request</span> {{vm.vmRequest.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.name}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.description}}</span>
+        </dd>
+        <dt><span>Hdd</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.hdd}}</span>
+        </dd>
+        <dt><span>Processor</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.processor}}</span>
+        </dd>
+        <dt><span>Ram</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.ram}}</span>
+        </dd>
+        <dt><span>Approved</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.approved}}</span>
+        </dd>
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.created}}</span>
+        </dd>
+        <dt><span>Operating System</span></dt>
+        <dd>
+            {{vm.vmRequest.operatingSystem.name}}
+        </dd>
+        <dt><span>Project</span></dt>
+        <dd>
+            <a ui-sref="project-detail({id:vm.vmRequest.project.id})">{{vm.vmRequest.project.name}}</a>
+        </dd>
+        <dt><span>Environment</span></dt>
+        <dd>
+            <span>{{vm.vmRequest.environment}}</span>
+        </dd>
+        <dt><span>From</span></dt>
+        <dd>
+            {{vm.vmRequest.from.firstName + " " + vm.vmRequest.from.lastName}}
+        </dd>
+        <!--<dt><span>To</span></dt>-->
+        <!--<dd>-->
+            <!--{{vm.vmRequest.to.id}}-->
+        <!--</dd>-->
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+    <button ng-show="!vm.hasRole('ROLE_ADMIN') && !vmRequest.approved" type="button" ui-sref="vm-request-detail.edit({id:vm.vmRequest.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

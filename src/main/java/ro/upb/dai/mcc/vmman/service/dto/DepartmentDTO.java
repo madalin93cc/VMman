@@ -26,8 +26,12 @@ public class DepartmentDTO {
             this.id = department.getId();
             this.name = department.getName();
             User manager = department.getManager();
-            this.manager = new ManagedUserVM(manager.getId(), manager.getLogin(), null, manager.getFirstName(), manager.getLastName(),
-                manager.getEmail(), manager.getActivated(), null, null, null, null, null, null, null);
+            if (manager != null) {
+                this.manager = new ManagedUserVM(manager.getId(), manager.getLogin(), null, manager.getFirstName(), manager.getLastName(),
+                    manager.getEmail(), manager.getActivated(), null, null, null, null, null, null, null);
+            } else {
+                this.manager = null;
+            }
         }
     }
 

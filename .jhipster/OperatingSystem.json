@@ -1,15 +1,7 @@
 {
     "fluentMethods": true,
     "relationships": [],
-    "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        }
-    ],
+    "fields": [],
     "changelogDate": "20170106133439",
     "entityTableName": "operating_system",
     "dto": "no",

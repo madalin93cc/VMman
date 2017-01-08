@@ -1,0 +1,27 @@
+entity User {}
+entity OperatingSystem {}
+
+entity VmRequest {
+	name String required,
+    description String,
+    hdd String required,
+    processor String required,
+    ram String required,
+    approved Boolean
+}
+
+relationship ManyToOne {
+	VmRequest{operatingSystem} to OperatingSystem
+}
+
+relationship ManyToOne {
+	VmRequest{from} to User
+}
+
+relationship ManyToOne {
+	VmRequest{to} to User
+}
+
+paginate * with pagination
+
+service all with serviceImpl
