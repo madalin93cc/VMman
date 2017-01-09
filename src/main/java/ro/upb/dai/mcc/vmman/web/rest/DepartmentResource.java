@@ -7,8 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.upb.dai.mcc.vmman.domain.Department;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.DepartmentService;
 import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
@@ -41,6 +43,7 @@ public class DepartmentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/departments")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<DepartmentDTO> createDepartment(@Valid @RequestBody Department department) throws URISyntaxException {
         log.debug("REST request to save Department : {}", department);
         if (department.getId() != null) {
@@ -62,6 +65,7 @@ public class DepartmentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/departments")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<DepartmentDTO> updateDepartment(@Valid @RequestBody Department department) throws URISyntaxException {
         log.debug("REST request to update Department : {}", department);
         if (department.getId() == null) {
@@ -81,6 +85,7 @@ public class DepartmentResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/departments")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<List<DepartmentDTO>> getAllDepartments(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Departments");
@@ -96,6 +101,7 @@ public class DepartmentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the department, or with status 404 (Not Found)
      */
     @GetMapping("/departments/{id}")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<DepartmentDTO> getDepartment(@PathVariable Long id) {
         log.debug("REST request to get Department : {}", id);
         DepartmentDTO department = departmentService.findOne(id);
@@ -113,6 +119,7 @@ public class DepartmentResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/departments/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
         log.debug("REST request to delete Department : {}", id);
         departmentService.delete(id);

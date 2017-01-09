@@ -5,18 +5,14 @@
         .module('vMmanApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', '$scope', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$state', '$scope', 'Auth', 'Principal', 'LoginService'];
 
-    function NavbarController ($state, $scope, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($state, $scope, Auth, Principal, LoginService) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
         vm.sidebarUrl = "app/layouts/navbar/sidebar.html";
-
-        ProfileService.getProfileInfo().then(function(response) {
-            vm.inProduction = response.inProduction;
-        });
 
         vm.login = login;
         vm.logout = logout;

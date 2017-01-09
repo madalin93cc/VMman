@@ -1,26 +1,24 @@
 package ro.upb.dai.mcc.vmman.service.impl;
 
-import org.springframework.data.domain.PageImpl;
-import org.springframework.security.core.context.SecurityContextHolder;
-import ro.upb.dai.mcc.vmman.domain.Department;
-import ro.upb.dai.mcc.vmman.domain.User;
-import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
-import ro.upb.dai.mcc.vmman.repository.UserRepository;
-import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
-import ro.upb.dai.mcc.vmman.service.VirtualMachineService;
-import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
-import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ro.upb.dai.mcc.vmman.domain.Department;
+import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
+import ro.upb.dai.mcc.vmman.repository.UserRepository;
+import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
+import ro.upb.dai.mcc.vmman.security.SecurityUtils;
+import ro.upb.dai.mcc.vmman.service.VirtualMachineService;
 import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
 
 import javax.inject.Inject;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Service Implementation for managing VirtualMachine.
@@ -37,9 +35,7 @@ public class VirtualMachineServiceImpl implements VirtualMachineService{
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private AuthorityRepository authorityRepository;
-    /**
+   /**
      * Save a virtualMachine.
      *
      * @param virtualMachine the entity to save
@@ -60,9 +56,9 @@ public class VirtualMachineServiceImpl implements VirtualMachineService{
     @Transactional(readOnly = true)
     public Page<VirtualMachineDTO> findAll(Pageable pageable) {
         log.debug("Request to get all VirtualMachines");
-        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         Page<VirtualMachineDTO> result = null;
-        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             result = virtualMachineRepository.findAll(pageable).map(VirtualMachineDTO::new);
         } else {
             Department department = user.getDepartment();

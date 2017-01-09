@@ -5,17 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.upb.dai.mcc.vmman.domain.Authority;
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.Project;
 import ro.upb.dai.mcc.vmman.domain.User;
-import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.ProjectRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
+import ro.upb.dai.mcc.vmman.security.SecurityUtils;
 import ro.upb.dai.mcc.vmman.service.ProjectService;
 import ro.upb.dai.mcc.vmman.service.dto.ProjectDTO;
 
@@ -30,9 +28,6 @@ import java.util.Collections;
 public class ProjectServiceImpl implements ProjectService{
 
     private final Logger log = LoggerFactory.getLogger(ProjectServiceImpl.class);
-
-    @Inject
-    private AuthorityRepository authorityRepository;
 
     @Inject
     private ProjectRepository projectRepository;
@@ -61,9 +56,9 @@ public class ProjectServiceImpl implements ProjectService{
     @Transactional(readOnly = true)
     public Page<ProjectDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Projects");
-        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         Page<ProjectDTO> result = null;
-        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             result = projectRepository.findAll(pageable).map(ProjectDTO::new);
         } else {
             Department department = user.getDepartment();

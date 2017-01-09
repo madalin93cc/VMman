@@ -7,8 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.upb.dai.mcc.vmman.domain.OperatingSystem;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.OperatingSystemService;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
@@ -25,6 +27,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Secured(AuthoritiesConstants.ADMIN)
 public class OperatingSystemResource {
 
     private final Logger log = LoggerFactory.getLogger(OperatingSystemResource.class);

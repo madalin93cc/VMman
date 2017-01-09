@@ -7,8 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.upb.dai.mcc.vmman.domain.Project;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.ProjectService;
 import ro.upb.dai.mcc.vmman.service.dto.ProjectDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
@@ -41,6 +43,7 @@ public class ProjectResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/projects")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<ProjectDTO> createProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to save Project : {}", project);
         if (project.getId() != null) {
@@ -62,6 +65,7 @@ public class ProjectResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/projects")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<ProjectDTO> updateProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to update Project : {}", project);
         if (project.getId() == null) {
@@ -81,6 +85,7 @@ public class ProjectResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/projects")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER, AuthoritiesConstants.USER})
     public ResponseEntity<List<ProjectDTO>> getAllProjects(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Projects");
@@ -96,6 +101,7 @@ public class ProjectResource {
      * @return the ResponseEntity with status 200 (OK) and with body the project, or with status 404 (Not Found)
      */
     @GetMapping("/projects/{id}")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER, AuthoritiesConstants.USER})
     public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
         log.debug("REST request to get Project : {}", id);
         ProjectDTO project = projectService.findOne(id);
@@ -113,6 +119,7 @@ public class ProjectResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/projects/{id}")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         log.debug("REST request to delete Project : {}", id);
         projectService.delete(id);

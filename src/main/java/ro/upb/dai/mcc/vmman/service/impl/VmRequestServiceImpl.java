@@ -1,24 +1,22 @@
 package ro.upb.dai.mcc.vmman.service.impl;
 
-import org.springframework.data.domain.PageImpl;
-import org.springframework.security.core.context.SecurityContextHolder;
-import ro.upb.dai.mcc.vmman.domain.Department;
-import ro.upb.dai.mcc.vmman.domain.User;
-import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
-import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
-import ro.upb.dai.mcc.vmman.repository.UserRepository;
-import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
-import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
-import ro.upb.dai.mcc.vmman.service.VmRequestService;
-import ro.upb.dai.mcc.vmman.domain.VmRequest;
-import ro.upb.dai.mcc.vmman.repository.VmRequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
+import org.springframework.transaction.annotation.Transactional;
+import ro.upb.dai.mcc.vmman.domain.Department;
+import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
+import ro.upb.dai.mcc.vmman.domain.VmRequest;
+import ro.upb.dai.mcc.vmman.repository.UserRepository;
+import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
+import ro.upb.dai.mcc.vmman.repository.VmRequestRepository;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
+import ro.upb.dai.mcc.vmman.security.SecurityUtils;
+import ro.upb.dai.mcc.vmman.service.VmRequestService;
 import ro.upb.dai.mcc.vmman.service.dto.VmRequestDTO;
 
 import javax.inject.Inject;
@@ -42,9 +40,6 @@ public class VmRequestServiceImpl implements VmRequestService{
     private UserRepository userRepository;
 
     @Inject
-    private AuthorityRepository authorityRepository;
-
-    @Inject
     private VirtualMachineRepository virtualMachineRepository;
 
     /**
@@ -55,16 +50,16 @@ public class VmRequestServiceImpl implements VmRequestService{
      */
     public VmRequestDTO save(VmRequest vmRequest) {
         log.debug("Request to save VmRequest : {}", vmRequest);
-        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         vmRequest.from(user);
         vmRequest.created(false);
-        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.USER))) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
             vmRequest.approved(false);
             Department department = user.getDepartment();
             if (department != null) {
                 vmRequest.to(department.getManager());
             }
-        } else if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.MANAGER))){
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)){
             vmRequest.approved(true);
         }
 
@@ -81,11 +76,11 @@ public class VmRequestServiceImpl implements VmRequestService{
     @Transactional(readOnly = true)
     public Page<VmRequestDTO> findAll(Pageable pageable) {
         log.debug("Request to get all VmRequests");
-        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         Page<VmRequestDTO> result = null;
-        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             result = vmRequestRepository.findAll(pageable).map(VmRequestDTO::new);
-        } else if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.MANAGER))){
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)){
             Department department = user.getDepartment();
             if (department != null) {
                 result = vmRequestRepository.findAllByFromDepartment(pageable, department).map(VmRequestDTO::new);
@@ -135,10 +130,10 @@ public class VmRequestServiceImpl implements VmRequestService{
         System.out.println("approved");
         VmRequest request = vmRequestRepository.findOne(id);
         if (request != null) {
-            User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
-            if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.MANAGER))) {
+            User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+            if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
                 request.approved(true);
-            } else if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))){
+            } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
                 if (request.isApproved()) {
                     VirtualMachine virtualMachine = new VirtualMachine();
                     virtualMachine.setName(request.getName());

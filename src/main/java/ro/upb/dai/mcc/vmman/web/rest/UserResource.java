@@ -9,20 +9,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ro.upb.dai.mcc.vmman.config.Constants;
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
-import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
+import ro.upb.dai.mcc.vmman.security.SecurityUtils;
 import ro.upb.dai.mcc.vmman.service.UserService;
+import ro.upb.dai.mcc.vmman.service.dto.ManagedUserDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
-import ro.upb.dai.mcc.vmman.service.dto.ManagedUserDTO;
 
 import javax.inject.Inject;
 import java.net.URI;
@@ -67,9 +66,6 @@ public class UserResource {
 
     @Inject
     private UserService userService;
-
-    @Inject
-    private AuthorityRepository authorityRepository;
 
     @Inject
     private DepartmentRepository departmentRepository;
@@ -169,9 +165,9 @@ public class UserResource {
     public ResponseEntity<List<ManagedUserDTO>> getAllUsers(Pageable pageable)
         throws URISyntaxException {
 
-        User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         Page<User> page = null;
-        if (user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.ADMIN))) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             page = userRepository.findAllWithAuthorities(pageable);
         } else {
             Department department = user.getDepartment();

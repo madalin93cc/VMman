@@ -7,8 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.upb.dai.mcc.vmman.domain.VmRequest;
+import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.VmRequestService;
 import ro.upb.dai.mcc.vmman.service.dto.VmRequestDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
@@ -41,6 +43,7 @@ public class VmRequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/vm-requests")
+    @Secured({AuthoritiesConstants.USER, AuthoritiesConstants.MANAGER})
     public ResponseEntity<VmRequestDTO> createVmRequest(@Valid @RequestBody VmRequest vmRequest) throws URISyntaxException {
         log.debug("REST request to save VmRequest : {}", vmRequest);
         if (vmRequest.getId() != null) {
@@ -62,6 +65,7 @@ public class VmRequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/vm-requests")
+    @Secured({AuthoritiesConstants.USER, AuthoritiesConstants.MANAGER})
     public ResponseEntity<VmRequestDTO> updateVmRequest(@Valid @RequestBody VmRequest vmRequest) throws URISyntaxException {
         log.debug("REST request to update VmRequest : {}", vmRequest);
         if (vmRequest.getId() == null) {
@@ -81,6 +85,7 @@ public class VmRequestResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/vm-requests")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER, AuthoritiesConstants.USER})
     public ResponseEntity<List<VmRequestDTO>> getAllVmRequests(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of VmRequests");
@@ -96,6 +101,7 @@ public class VmRequestResource {
      * @return the ResponseEntity with status 200 (OK) and with body the vmRequest, or with status 404 (Not Found)
      */
     @GetMapping("/vm-requests/{id}")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER, AuthoritiesConstants.USER})
     public ResponseEntity<VmRequestDTO> getVmRequest(@PathVariable Long id) {
         log.debug("REST request to get VmRequest : {}", id);
         VmRequestDTO vmRequest = vmRequestService.findOne(id);
@@ -113,6 +119,7 @@ public class VmRequestResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/vm-requests/{id}")
+    @Secured({AuthoritiesConstants.MANAGER})
     public ResponseEntity<Void> deleteVmRequest(@PathVariable Long id) {
         log.debug("REST request to delete VmRequest : {}", id);
         vmRequestService.delete(id);
@@ -120,6 +127,7 @@ public class VmRequestResource {
     }
 
     @PutMapping("/vm-requests/{id}")
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
     public ResponseEntity<Void> approveRequest(@PathVariable Long id) {
         log.debug("REST request to approve VmRequest : {}", id);
         vmRequestService.approve(id);
