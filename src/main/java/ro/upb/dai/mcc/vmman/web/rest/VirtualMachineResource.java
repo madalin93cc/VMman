@@ -1,6 +1,5 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -42,7 +41,6 @@ public class VirtualMachineResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/virtual-machines")
-    @Timed
     public ResponseEntity<VirtualMachineDTO> createVirtualMachine(@Valid @RequestBody VirtualMachine virtualMachine) throws URISyntaxException {
         log.debug("REST request to save VirtualMachine : {}", virtualMachine);
         if (virtualMachine.getId() != null) {
@@ -64,7 +62,6 @@ public class VirtualMachineResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/virtual-machines")
-    @Timed
     public ResponseEntity<VirtualMachineDTO> updateVirtualMachine(@Valid @RequestBody VirtualMachine virtualMachine) throws URISyntaxException {
         log.debug("REST request to update VirtualMachine : {}", virtualMachine);
         if (virtualMachine.getId() == null) {
@@ -84,7 +81,6 @@ public class VirtualMachineResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/virtual-machines")
-    @Timed
     public ResponseEntity<List<VirtualMachineDTO>> getAllVirtualMachines(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of VirtualMachines");
@@ -100,7 +96,6 @@ public class VirtualMachineResource {
      * @return the ResponseEntity with status 200 (OK) and with body the virtualMachine, or with status 404 (Not Found)
      */
     @GetMapping("/virtual-machines/{id}")
-    @Timed
     public ResponseEntity<VirtualMachineDTO> getVirtualMachine(@PathVariable Long id) {
         log.debug("REST request to get VirtualMachine : {}", id);
         VirtualMachineDTO virtualMachine = virtualMachineService.findOne(id);
@@ -118,7 +113,6 @@ public class VirtualMachineResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/virtual-machines/{id}")
-    @Timed
     public ResponseEntity<Void> deleteVirtualMachine(@PathVariable Long id) {
         log.debug("REST request to delete VirtualMachine : {}", id);
         virtualMachineService.delete(id);

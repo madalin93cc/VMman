@@ -37,13 +37,6 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
-    mail:
-        host: localhost
-        port: 25
-        username:
-        password:
-    thymeleaf:
-        cache: true
 
 liquibase:
     contexts: prod
@@ -67,22 +60,6 @@ jhipster:
         rememberMe:
             # security key (this key should be unique for your application, and kept secret)
             key: 61feccfdc28fa3aaaf14e4a62dd195f13ae81eaa
-    mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: VMman@localhost
-        baseUrl: http://my-server-url-to-change # Modify according to your server's URL
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-        jmx.enabled: true
-        graphite:
-            enabled: false
-            host: localhost
-            port: 2003
-            prefix: VMman
-        prometheus:
-            enabled: false
-            endpoint: /prometheusMetrics
-        logs: # Reports Dropwizard metrics in the logs
-            enabled: false
-            reportFrequency: 60 # in seconds
     logging:
         logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
             enabled: false

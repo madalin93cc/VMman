@@ -1,6 +1,5 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -42,7 +41,6 @@ public class ProjectResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/projects")
-    @Timed
     public ResponseEntity<ProjectDTO> createProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to save Project : {}", project);
         if (project.getId() != null) {
@@ -64,7 +62,6 @@ public class ProjectResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/projects")
-    @Timed
     public ResponseEntity<ProjectDTO> updateProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to update Project : {}", project);
         if (project.getId() == null) {
@@ -84,7 +81,6 @@ public class ProjectResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/projects")
-    @Timed
     public ResponseEntity<List<ProjectDTO>> getAllProjects(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Projects");
@@ -100,7 +96,6 @@ public class ProjectResource {
      * @return the ResponseEntity with status 200 (OK) and with body the project, or with status 404 (Not Found)
      */
     @GetMapping("/projects/{id}")
-    @Timed
     public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
         log.debug("REST request to get Project : {}", id);
         ProjectDTO project = projectService.findOne(id);
@@ -118,7 +113,6 @@ public class ProjectResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/projects/{id}")
-    @Timed
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         log.debug("REST request to delete Project : {}", id);
         projectService.delete(id);

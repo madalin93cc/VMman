@@ -1,6 +1,5 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -41,7 +40,6 @@ public class OperatingSystemResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/operating-systems")
-    @Timed
     public ResponseEntity<OperatingSystem> createOperatingSystem(@Valid @RequestBody OperatingSystem operatingSystem) throws URISyntaxException {
         log.debug("REST request to save OperatingSystem : {}", operatingSystem);
         if (operatingSystem.getId() != null) {
@@ -63,7 +61,6 @@ public class OperatingSystemResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/operating-systems")
-    @Timed
     public ResponseEntity<OperatingSystem> updateOperatingSystem(@Valid @RequestBody OperatingSystem operatingSystem) throws URISyntaxException {
         log.debug("REST request to update OperatingSystem : {}", operatingSystem);
         if (operatingSystem.getId() == null) {
@@ -83,7 +80,6 @@ public class OperatingSystemResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/operating-systems")
-    @Timed
     public ResponseEntity<List<OperatingSystem>> getAllOperatingSystems(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of OperatingSystems");
@@ -99,7 +95,6 @@ public class OperatingSystemResource {
      * @return the ResponseEntity with status 200 (OK) and with body the operatingSystem, or with status 404 (Not Found)
      */
     @GetMapping("/operating-systems/{id}")
-    @Timed
     public ResponseEntity<OperatingSystem> getOperatingSystem(@PathVariable Long id) {
         log.debug("REST request to get OperatingSystem : {}", id);
         OperatingSystem operatingSystem = operatingSystemService.findOne(id);
@@ -117,7 +112,6 @@ public class OperatingSystemResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/operating-systems/{id}")
-    @Timed
     public ResponseEntity<Void> deleteOperatingSystem(@PathVariable Long id) {
         log.debug("REST request to delete OperatingSystem : {}", id);
         operatingSystemService.delete(id);

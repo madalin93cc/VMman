@@ -96,7 +96,6 @@ apply from: 'gradle/sonar.gradle'
 
 apply from: 'gradle/liquibase.gradle'
 
-apply from: 'gradle/mapstruct.gradle'
 apply from: 'gradle/docker.gradle'
 //jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
 
@@ -135,15 +134,6 @@ repositories {
 }
 
 dependencies {
-    compile "io.dropwizard.metrics:metrics-core"
-    compile "io.dropwizard.metrics:metrics-graphite:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-healthchecks:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-jvm:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-servlet:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-json:${dropwizard_metrics_version}"
-    compile ("io.dropwizard.metrics:metrics-servlets:${dropwizard_metrics_version}") {
-        exclude(module: 'metrics-healthchecks')
-    }
     compile "io.prometheus:simpleclient:${prometheus_simpleclient_version}"
     compile "io.prometheus:simpleclient_servlet:${prometheus_simpleclient_version}"
     compile "io.prometheus:simpleclient_dropwizard:${prometheus_simpleclient_version}"
@@ -156,10 +146,6 @@ dependencies {
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
     compile "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}"
     compile "com.fasterxml.jackson.core:jackson-databind:${jackson_version}"
-    compile ("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}") {
-        exclude(module: 'metrics-core')
-        exclude(module: 'metrics-healthchecks')
-    }
     compile "org.hibernate:hibernate-core:${hibernate_version}"
     compile("com.zaxxer:HikariCP") {
         exclude(module: 'tools')
@@ -168,7 +154,6 @@ dependencies {
     compile "commons-io:commons-io:${commons_io_version}"
     compile "javax.inject:javax.inject:${javax_inject_version}"
     compile "javax.transaction:javax.transaction-api"
-    compile "org.apache.geronimo.javamail:geronimo-javamail_1.4_mail:${geronimo_javamail_1_4_mail_version}"
 
     compile "org.hibernate:hibernate-envers"
     compile "org.hibernate:hibernate-validator"
@@ -187,7 +172,6 @@ dependencies {
         exclude module: 'spring-boot-starter-tomcat'
     }
     compile "org.springframework.boot:spring-boot-starter-undertow"
-    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     compile "org.springframework.boot:spring-boot-starter-cloud-connectors"
     compile ("org.springframework:spring-context-support") {
         exclude(module: 'quartz')
@@ -197,7 +181,6 @@ dependencies {
     compile "org.springframework.security:spring-security-web:${spring_security_version}"
     compile "io.springfox:springfox-bean-validators:${springfox_version}"
     compile "mysql:mysql-connector-java"
-    compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
     testCompile "com.jayway.awaitility:awaitility:${awaility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile "org.springframework.boot:spring-boot-starter-test"

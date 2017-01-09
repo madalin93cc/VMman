@@ -1,8 +1,9 @@
 package ro.upb.dai.mcc.vmman.config;
 
-import javax.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.cors.CorsConfiguration;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Properties specific to JHipster.
@@ -20,11 +21,7 @@ public class JHipsterProperties {
 
     private final Cache cache = new Cache();
 
-    private final Mail mail = new Mail();
-
     private final Security security = new Security();
-
-    private final Metrics metrics = new Metrics();
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
@@ -42,16 +39,8 @@ public class JHipsterProperties {
         return cache;
     }
 
-    public Mail getMail() {
-        return mail;
-    }
-
     public Security getSecurity() {
         return security;
-    }
-
-    public Metrics getMetrics() {
-        return metrics;
     }
 
     public CorsConfiguration getCors() {
@@ -120,29 +109,6 @@ public class JHipsterProperties {
     public static class Cache {
     }
 
-    public static class Mail {
-
-        private String from = "VMman@localhost";
-
-        private String baseUrl = "";
-
-        public String getFrom() {
-            return from;
-        }
-
-        public void setFrom(String from) {
-            this.from = from;
-        }
-
-        public String getBaseUrl() {
-            return baseUrl;
-        }
-
-        public void setBaseUrl(String baseUrl) {
-            this.baseUrl = baseUrl;
-        }
-    }
-
     public static class Security {
 
         private final RememberMe rememberMe = new RememberMe();
@@ -162,135 +128,6 @@ public class JHipsterProperties {
 
             public void setKey(String key) {
                 this.key = key;
-            }
-        }
-    }
-
-    public static class Metrics {
-
-        private final Jmx jmx = new Jmx();
-
-        private final Graphite graphite = new Graphite();
-
-        private final Prometheus prometheus = new Prometheus();
-
-        private final Logs logs = new Logs();
-
-        public Jmx getJmx() {
-            return jmx;
-        }
-
-        public Graphite getGraphite() {
-            return graphite;
-        }
-
-        public Prometheus getPrometheus() {
-            return prometheus;
-        }
-
-        public Logs getLogs() {
-            return logs;
-        }
-
-        public static class Jmx {
-
-            private boolean enabled = true;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-        }
-
-        public static class Graphite {
-
-            private boolean enabled = false;
-
-            private String host = "localhost";
-
-            private int port = 2003;
-
-            private String prefix = "VMman";
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getHost() {
-                return host;
-            }
-
-            public void setHost(String host) {
-                this.host = host;
-            }
-
-            public int getPort() {
-                return port;
-            }
-
-            public void setPort(int port) {
-                this.port = port;
-            }
-
-            public String getPrefix() {
-                return prefix;
-            }
-
-            public void setPrefix(String prefix) {
-                this.prefix = prefix;
-            }
-        }
-
-        public static class Prometheus {
-
-            private boolean enabled = false;
-
-            private String endpoint = "/prometheusMetrics";
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getEndpoint() {
-                return endpoint;
-            }
-
-            public void setEndpoint(String endpoint) {
-                this.endpoint = endpoint;
-            }
-        }
-
-        public static class Logs {
-
-            private boolean enabled = false;
-
-            private long reportFrequency = 60;
-
-            public long getReportFrequency() {
-                return reportFrequency;
-            }
-
-            public void setReportFrequency(int reportFrequency) {
-                this.reportFrequency = reportFrequency;
-            }
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
             }
         }
     }

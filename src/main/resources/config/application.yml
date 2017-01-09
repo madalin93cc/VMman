@@ -13,9 +13,6 @@
 
 management:
     context-path: /management
-    health:
-        mail:
-            enabled: false # When using the MailService, configure an SMTP server and set this to true
 spring:
     application:
         name: VMman
@@ -33,13 +30,9 @@ spring:
             naming:
                 physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-    messages:
-        basename: i18n/messages
     mvc:
         favicon:
             enabled: false
-    thymeleaf:
-        mode: XHTML
 
 security:
     basic:
@@ -66,8 +59,6 @@ jhipster:
         #exposed-headers:
         #allow-credentials: true
         #max-age: 1800
-    mail:
-        from: VMman@localhost
     ribbon:
         # comma separated list of profiles to show a ribbon on the GUI
         displayOnActiveProfiles: dev

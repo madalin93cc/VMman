@@ -1,6 +1,5 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -42,7 +41,6 @@ public class VmRequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/vm-requests")
-    @Timed
     public ResponseEntity<VmRequestDTO> createVmRequest(@Valid @RequestBody VmRequest vmRequest) throws URISyntaxException {
         log.debug("REST request to save VmRequest : {}", vmRequest);
         if (vmRequest.getId() != null) {
@@ -64,7 +62,6 @@ public class VmRequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/vm-requests")
-    @Timed
     public ResponseEntity<VmRequestDTO> updateVmRequest(@Valid @RequestBody VmRequest vmRequest) throws URISyntaxException {
         log.debug("REST request to update VmRequest : {}", vmRequest);
         if (vmRequest.getId() == null) {
@@ -84,7 +81,6 @@ public class VmRequestResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/vm-requests")
-    @Timed
     public ResponseEntity<List<VmRequestDTO>> getAllVmRequests(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of VmRequests");
@@ -100,7 +96,6 @@ public class VmRequestResource {
      * @return the ResponseEntity with status 200 (OK) and with body the vmRequest, or with status 404 (Not Found)
      */
     @GetMapping("/vm-requests/{id}")
-    @Timed
     public ResponseEntity<VmRequestDTO> getVmRequest(@PathVariable Long id) {
         log.debug("REST request to get VmRequest : {}", id);
         VmRequestDTO vmRequest = vmRequestService.findOne(id);
@@ -118,7 +113,6 @@ public class VmRequestResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/vm-requests/{id}")
-    @Timed
     public ResponseEntity<Void> deleteVmRequest(@PathVariable Long id) {
         log.debug("REST request to delete VmRequest : {}", id);
         vmRequestService.delete(id);
@@ -126,7 +120,6 @@ public class VmRequestResource {
     }
 
     @PutMapping("/vm-requests/{id}")
-    @Timed
     public ResponseEntity<Void> approveRequest(@PathVariable Long id) {
         log.debug("REST request to approve VmRequest : {}", id);
         vmRequestService.approve(id);

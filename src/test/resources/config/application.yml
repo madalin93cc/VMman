@@ -37,13 +37,9 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
             hibernate.hbm2ddl.auto: validate
-    mail:
-        host: localhost
     mvc:
         favicon:
             enabled: false
-    thymeleaf:
-        mode: XHTML
 
 liquibase:
     contexts: test
@@ -69,5 +65,3 @@ jhipster:
         rememberMe:
             # security key (this key should be unique for your application, and kept secret)
             key: 61feccfdc28fa3aaaf14e4a62dd195f13ae81eaa
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-        jmx.enabled: true

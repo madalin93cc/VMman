@@ -1,6 +1,5 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,7 +19,6 @@ import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
-import ro.upb.dai.mcc.vmman.service.MailService;
 import ro.upb.dai.mcc.vmman.service.UserService;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
@@ -68,9 +66,6 @@ public class UserResource {
     private UserRepository userRepository;
 
     @Inject
-    private MailService mailService;
-
-    @Inject
     private UserService userService;
 
     @Inject
@@ -91,7 +86,6 @@ public class UserResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/users")
-    @Timed
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<?> createUser(@RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
         log.debug("REST request to save User : {}", managedUserVM);
@@ -123,7 +117,6 @@ public class UserResource {
      * or with status 500 (Internal Server Error) if the user couldn't be updated
      */
     @PutMapping("/users")
-    @Timed
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<ManagedUserVM> updateUser(@RequestBody ManagedUserVM managedUserVM) {
         log.debug("REST request to update User : {}", managedUserVM);
@@ -152,7 +145,6 @@ public class UserResource {
      * @throws URISyntaxException if the pagination headers couldn't be generated
      */
     @GetMapping("/managers")
-    @Timed
     public ResponseEntity<List<ManagedUserVM>> getAllManagers(Pageable pageable)
         throws URISyntaxException {
         Page<User> page = userRepository.findAllWithAuthorities(pageable);
@@ -173,7 +165,6 @@ public class UserResource {
      * @throws URISyntaxException if the pagination headers couldn't be generated
      */
     @GetMapping("/users")
-    @Timed
     @Transactional(readOnly = true)
     public ResponseEntity<List<ManagedUserVM>> getAllUsers(Pageable pageable)
         throws URISyntaxException {
@@ -205,7 +196,6 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @Timed
     public ResponseEntity<ManagedUserVM> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return userService.getUserWithAuthoritiesByLogin(login)
@@ -221,7 +211,6 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @Timed
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);

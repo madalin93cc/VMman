@@ -1,19 +1,5 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-
-import ro.upb.dai.mcc.vmman.domain.PersistentToken;
-import ro.upb.dai.mcc.vmman.domain.User;
-import ro.upb.dai.mcc.vmman.repository.PersistentTokenRepository;
-import ro.upb.dai.mcc.vmman.repository.UserRepository;
-import ro.upb.dai.mcc.vmman.security.SecurityUtils;
-import ro.upb.dai.mcc.vmman.service.MailService;
-import ro.upb.dai.mcc.vmman.service.UserService;
-import ro.upb.dai.mcc.vmman.service.dto.UserDTO;
-import ro.upb.dai.mcc.vmman.web.rest.vm.KeyAndPasswordVM;
-import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
-import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +8,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.upb.dai.mcc.vmman.domain.PersistentToken;
+import ro.upb.dai.mcc.vmman.domain.User;
+import ro.upb.dai.mcc.vmman.repository.PersistentTokenRepository;
+import ro.upb.dai.mcc.vmman.repository.UserRepository;
+import ro.upb.dai.mcc.vmman.security.SecurityUtils;
+import ro.upb.dai.mcc.vmman.service.UserService;
+import ro.upb.dai.mcc.vmman.service.dto.UserDTO;
+import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
+import ro.upb.dai.mcc.vmman.web.rest.vm.KeyAndPasswordVM;
+import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.
@@ -48,9 +45,6 @@ public class AccountResource {
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
 
-    @Inject
-    private MailService mailService;
-
     /**
      * POST  /register : register the user.
      *
@@ -59,7 +53,6 @@ public class AccountResource {
      */
     @PostMapping(path = "/register",
                     produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
-    @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
 
         HttpHeaders textPlainHeaders = new HttpHeaders();
@@ -75,7 +68,6 @@ public class AccountResource {
                             managedUserVM.getFirstName(), managedUserVM.getLastName(),
                             managedUserVM.getEmail().toLowerCase(), managedUserVM.getLangKey());
 
-                    mailService.sendActivationEmail(user);
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
         );
@@ -88,7 +80,6 @@ public class AccountResource {
      * @return the ResponseEntity with status 200 (OK) and the activated user in body, or status 500 (Internal Server Error) if the user couldn't be activated
      */
     @GetMapping("/activate")
-    @Timed
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         return userService.activateRegistration(key)
             .map(user -> new ResponseEntity<String>(HttpStatus.OK))
@@ -102,7 +93,6 @@ public class AccountResource {
      * @return the login if the user is authenticated
      */
     @GetMapping("/authenticate")
-    @Timed
     public String isAuthenticated(HttpServletRequest request) {
         log.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
@@ -114,7 +104,6 @@ public class AccountResource {
      * @return the ResponseEntity with status 200 (OK) and the current user in body, or status 500 (Internal Server Error) if the user couldn't be returned
      */
     @GetMapping("/account")
-    @Timed
     public ResponseEntity<UserDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
             .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
@@ -128,7 +117,6 @@ public class AccountResource {
      * @return the ResponseEntity with status 200 (OK), or status 400 (Bad Request) or 500 (Internal Server Error) if the user couldn't be updated
      */
     @PostMapping("/account")
-    @Timed
     public ResponseEntity<String> saveAccount(@Valid @RequestBody UserDTO userDTO) {
         Optional<User> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
@@ -152,7 +140,6 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/change_password",
         produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
     public ResponseEntity<?> changePassword(@RequestBody String password) {
         if (!checkPasswordLength(password)) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
@@ -168,7 +155,6 @@ public class AccountResource {
      *  or status 500 (Internal Server Error) if the current open sessions couldn't be retrieved
      */
     @GetMapping("/account/sessions")
-    @Timed
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
         return userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin())
             .map(user -> new ResponseEntity<>(
@@ -194,7 +180,6 @@ public class AccountResource {
      * @throws UnsupportedEncodingException if the series couldnt be URL decoded
      */
     @DeleteMapping("/account/sessions/{series}")
-    @Timed
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(u -> {
@@ -212,11 +197,9 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/reset_password/init",
         produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
     public ResponseEntity<?> requestPasswordReset(@RequestBody String mail) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
-                mailService.sendPasswordResetMail(user);
                 return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
     }
@@ -230,7 +213,6 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/reset_password/finish",
         produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
     public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
