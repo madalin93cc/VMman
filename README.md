@@ -60,28 +60,6 @@ Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in
 
 For more information, refer to the [Running tests page][].
 
-## Using Docker to simplify development (optional)
-
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the `src/main/docker` folder to launch required third party services.
-For example, to start a mysql database in a docker container, run:
-
-    docker-compose -f src/main/docker/mysql.yml up -d
-
-To stop it and remove the container, run:
-
-    docker-compose -f src/main/docker/mysql.yml down
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-    ./gradlew bootRepackage -Pprod buildDocker
-
-Then run:
-
-    docker-compose -f src/main/docker/app.yml up -d
-
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`yo jhipster:docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
-
 ## Continuous Integration (optional)
 
 To set up a CI environment, consult the [Setting up Continuous Integration][] page.
@@ -90,7 +68,6 @@ To set up a CI environment, consult the [Setting up Continuous Integration][] pa
 [JHipster 3.12.2 archive]: https://jhipster.github.io/documentation-archive/v3.12.2
 
 [Using JHipster in development]: https://jhipster.github.io/documentation-archive/v3.12.2/development/
-[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v3.12.2/docker-compose
 [Using JHipster in production]: https://jhipster.github.io/documentation-archive/v3.12.2/production/
 [Running tests page]: https://jhipster.github.io/documentation-archive/v3.12.2/running-tests/
 [Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v3.12.2/setting-up-ci/

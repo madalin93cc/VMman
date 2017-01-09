@@ -1,7 +1,6 @@
 os:
   - linux
 services:
-  - docker
 language: java
 node_js:
   - "6.9.1"
