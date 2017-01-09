@@ -59,6 +59,3 @@ jhipster:
         #exposed-headers:
         #allow-credentials: true
         #max-age: 1800
-    ribbon:
-        # comma separated list of profiles to show a ribbon on the GUI
-        displayOnActiveProfiles: dev

@@ -25,8 +25,6 @@ public class JHipsterProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
-    private final Ribbon ribbon = new Ribbon();
-
     public Async getAsync() {
         return async;
     }
@@ -45,10 +43,6 @@ public class JHipsterProperties {
 
     public CorsConfiguration getCors() {
         return cors;
-    }
-
-    public Ribbon getRibbon() {
-        return ribbon;
     }
 
     public static class Async {
@@ -170,16 +164,4 @@ public class JHipsterProperties {
         }
     }
 
-    public static class Ribbon {
-
-        private String[] displayOnActiveProfiles;
-
-        public String[] getDisplayOnActiveProfiles() {
-            return displayOnActiveProfiles;
-        }
-
-        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
-            this.displayOnActiveProfiles = displayOnActiveProfiles;
-        }
-    }
 }

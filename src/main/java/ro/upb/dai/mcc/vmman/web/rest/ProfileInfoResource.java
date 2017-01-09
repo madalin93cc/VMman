@@ -1,14 +1,13 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ro.upb.dai.mcc.vmman.config.DefaultProfileUtil;
 import ro.upb.dai.mcc.vmman.config.JHipsterProperties;
-import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Resource to return information about the currently running Spring profiles.
@@ -26,34 +25,15 @@ public class ProfileInfoResource {
     @GetMapping("/profile-info")
     public ProfileInfoResponse getActiveProfiles() {
         String[] activeProfiles = DefaultProfileUtil.getActiveProfiles(env);
-        return new ProfileInfoResponse(activeProfiles, getRibbonEnv(activeProfiles));
-    }
-
-    private String getRibbonEnv(String[] activeProfiles) {
-        String[] displayOnActiveProfiles = jHipsterProperties.getRibbon().getDisplayOnActiveProfiles();
-
-        if (displayOnActiveProfiles == null) {
-            return null;
-        }
-
-        List<String> ribbonProfiles = new ArrayList<>(Arrays.asList(displayOnActiveProfiles));
-        List<String> springBootProfiles = Arrays.asList(activeProfiles);
-        ribbonProfiles.retainAll(springBootProfiles);
-
-        if (ribbonProfiles.size() > 0) {
-            return ribbonProfiles.get(0);
-        }
-        return null;
+        return new ProfileInfoResponse(activeProfiles);
     }
 
     class ProfileInfoResponse {
 
         public String[] activeProfiles;
-        public String ribbonEnv;
 
-        ProfileInfoResponse(String[] activeProfiles, String ribbonEnv) {
+        ProfileInfoResponse(String[] activeProfiles) {
             this.activeProfiles = activeProfiles;
-            this.ribbonEnv = ribbonEnv;
         }
     }
 }
