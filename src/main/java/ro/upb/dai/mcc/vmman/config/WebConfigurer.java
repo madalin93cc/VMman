@@ -59,7 +59,6 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
         // IE issue, see https://github.com/jhipster/generator-jhipster/pull/711
         mappings.add("html", "text/html;charset=utf-8");
-        // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
         mappings.add("json", "text/html;charset=utf-8");
         container.setMimeMappings(mappings);
         // When running in an IDE or with ./gradlew bootRun, set location of the static web assets.
