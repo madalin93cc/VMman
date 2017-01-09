@@ -16,8 +16,8 @@ import ro.upb.dai.mcc.vmman.security.SecurityUtils;
 import ro.upb.dai.mcc.vmman.service.UserService;
 import ro.upb.dai.mcc.vmman.service.dto.UserDTO;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
-import ro.upb.dai.mcc.vmman.web.rest.vm.KeyAndPasswordVM;
-import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
+import ro.upb.dai.mcc.vmman.service.dto.KeyAndPasswordDTO;
+import ro.upb.dai.mcc.vmman.service.dto.ManagedUserDTO;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -48,25 +48,25 @@ public class AccountResource {
     /**
      * POST  /register : register the user.
      *
-     * @param managedUserVM the managed user View Model
+     * @param managedUserDTO the managed user View Model
      * @return the ResponseEntity with status 201 (Created) if the user is registered or 400 (Bad Request) if the login or e-mail is already in use
      */
     @PostMapping(path = "/register",
                     produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserDTO managedUserDTO) {
 
         HttpHeaders textPlainHeaders = new HttpHeaders();
         textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 
-        return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
+        return userRepository.findOneByLogin(managedUserDTO.getLogin().toLowerCase())
             .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
+            .orElseGet(() -> userRepository.findOneByEmail(managedUserDTO.getEmail())
                 .map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
                     User user = userService
-                        .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
-                            managedUserVM.getFirstName(), managedUserVM.getLastName(),
-                            managedUserVM.getEmail().toLowerCase(), managedUserVM.getLangKey());
+                        .createUser(managedUserDTO.getLogin(), managedUserDTO.getPassword(),
+                            managedUserDTO.getFirstName(), managedUserDTO.getLastName(),
+                            managedUserDTO.getEmail().toLowerCase(), managedUserDTO.getLangKey());
 
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
@@ -213,7 +213,7 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/reset_password/finish",
         produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
+    public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordDTO keyAndPassword) {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
         }
@@ -224,7 +224,7 @@ public class AccountResource {
 
     private boolean checkPasswordLength(String password) {
         return (!StringUtils.isEmpty(password) &&
-            password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
-            password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH);
+            password.length() >= ManagedUserDTO.PASSWORD_MIN_LENGTH &&
+            password.length() <= ManagedUserDTO.PASSWORD_MAX_LENGTH);
     }
 }

@@ -1,4 +1,4 @@
-package ro.upb.dai.mcc.vmman.web.rest.vm;
+package ro.upb.dai.mcc.vmman.service.dto;
 
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * View Model extending the UserDTO, which is meant to be used in the user management UI.
  */
-public class ManagedUserVM extends UserDTO {
+public class ManagedUserDTO extends UserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 4;
     public static final int PASSWORD_MAX_LENGTH = 100;
@@ -32,10 +32,10 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
-    public ManagedUserVM() {
+    public ManagedUserDTO() {
     }
 
-    public ManagedUserVM(User user) {
+    public ManagedUserDTO(User user) {
         super(user);
         this.id = user.getId();
         this.createdBy = user.getCreatedBy();
@@ -46,9 +46,9 @@ public class ManagedUserVM extends UserDTO {
         this.department = (user.getDepartment() == null)? null: new DepartmentDTO(user.getDepartment());
     }
 
-    public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
-                         String email, boolean activated, String langKey, Set<String> authorities,
-                         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, Department department) {
+    public ManagedUserDTO(Long id, String login, String password, String firstName, String lastName,
+                          String email, boolean activated, String langKey, Set<String> authorities,
+                          String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, Department department) {
         super(login, firstName, lastName, email, activated, langKey, authorities, null);
         this.id = id;
         this.createdBy = createdBy;

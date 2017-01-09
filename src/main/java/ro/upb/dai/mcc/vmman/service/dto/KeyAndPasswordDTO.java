@@ -1,15 +1,15 @@
-package ro.upb.dai.mcc.vmman.web.rest.vm;
+package ro.upb.dai.mcc.vmman.service.dto;
 
 /**
  * View Model object for storing the user's key and password.
  */
-public class KeyAndPasswordVM {
+public class KeyAndPasswordDTO {
 
     private String key;
 
     private String newPassword;
 
-    public KeyAndPasswordVM() {
+    public KeyAndPasswordDTO() {
     }
 
     public String getKey() {

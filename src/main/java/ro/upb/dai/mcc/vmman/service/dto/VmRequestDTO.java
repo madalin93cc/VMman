@@ -3,7 +3,6 @@ package ro.upb.dai.mcc.vmman.service.dto;
 import ro.upb.dai.mcc.vmman.domain.OperatingSystem;
 import ro.upb.dai.mcc.vmman.domain.VmRequest;
 import ro.upb.dai.mcc.vmman.domain.enumeration.Environment;
-import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 
 /**
  * Created by Madalin on 08/01/2017.
@@ -18,8 +17,8 @@ public class VmRequestDTO {
     private Boolean approved;
     private Boolean created;
     private OperatingSystem operatingSystem;
-    private ManagedUserVM from;
-    private ManagedUserVM to;
+    private ManagedUserDTO from;
+    private ManagedUserDTO to;
     private ProjectDTO project;
     private Environment environment;
 
@@ -36,13 +35,13 @@ public class VmRequestDTO {
         this.approved = vmRequest.isApproved();
         this.created = vmRequest.getCreated();
         this.operatingSystem = vmRequest.getOperatingSystem();
-        this.from = new ManagedUserVM(vmRequest.getFrom());
-        this.to = (vmRequest.getTo() != null)? new ManagedUserVM(vmRequest.getTo()): null;
+        this.from = new ManagedUserDTO(vmRequest.getFrom());
+        this.to = (vmRequest.getTo() != null)? new ManagedUserDTO(vmRequest.getTo()): null;
         this.project = (vmRequest.getProject() != null)? new ProjectDTO(vmRequest.getProject()): null;
         this.environment = vmRequest.getEnvironment();
     }
 
-    public VmRequestDTO(Long id, String name, String description, String hdd, String processor, String ram, Boolean approved, Boolean created, OperatingSystem operatingSystem, ManagedUserVM from, ManagedUserVM to, ProjectDTO project, Environment environment) {
+    public VmRequestDTO(Long id, String name, String description, String hdd, String processor, String ram, Boolean approved, Boolean created, OperatingSystem operatingSystem, ManagedUserDTO from, ManagedUserDTO to, ProjectDTO project, Environment environment) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -130,19 +129,19 @@ public class VmRequestDTO {
         this.operatingSystem = operatingSystem;
     }
 
-    public ManagedUserVM getFrom() {
+    public ManagedUserDTO getFrom() {
         return from;
     }
 
-    public void setFrom(ManagedUserVM from) {
+    public void setFrom(ManagedUserDTO from) {
         this.from = from;
     }
 
-    public ManagedUserVM getTo() {
+    public ManagedUserDTO getTo() {
         return to;
     }
 
-    public void setTo(ManagedUserVM to) {
+    public void setTo(ManagedUserDTO to) {
         this.to = to;
     }
 

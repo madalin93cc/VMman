@@ -2,7 +2,6 @@ package ro.upb.dai.mcc.vmman.service.dto;
 
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
-import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 
 /**
  * Created by Madalin on 07/01/2017.
@@ -10,7 +9,7 @@ import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 public class DepartmentDTO {
     private Long id;
     private String name;
-    private ManagedUserVM manager;
+    private ManagedUserDTO manager;
 
     public DepartmentDTO() {
     }
@@ -18,7 +17,7 @@ public class DepartmentDTO {
     public DepartmentDTO(Long id, String name, User user) {
         this.id = id;
         this.name = name;
-        this.manager = new ManagedUserVM(user);
+        this.manager = new ManagedUserDTO(user);
     }
 
     public DepartmentDTO(Department department) {
@@ -27,7 +26,7 @@ public class DepartmentDTO {
             this.name = department.getName();
             User manager = department.getManager();
             if (manager != null) {
-                this.manager = new ManagedUserVM(manager.getId(), manager.getLogin(), null, manager.getFirstName(), manager.getLastName(),
+                this.manager = new ManagedUserDTO(manager.getId(), manager.getLogin(), null, manager.getFirstName(), manager.getLastName(),
                     manager.getEmail(), manager.getActivated(), null, null, null, null, null, null, null);
             } else {
                 this.manager = null;
@@ -51,11 +50,11 @@ public class DepartmentDTO {
         this.name = name;
     }
 
-    public ManagedUserVM getManager() {
+    public ManagedUserDTO getManager() {
         return manager;
     }
 
-    public void setManager(ManagedUserVM manager) {
+    public void setManager(ManagedUserDTO manager) {
         this.manager = manager;
     }
 

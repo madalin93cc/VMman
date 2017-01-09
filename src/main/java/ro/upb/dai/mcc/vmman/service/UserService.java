@@ -1,7 +1,6 @@
 package ro.upb.dai.mcc.vmman.service;
 
 import ro.upb.dai.mcc.vmman.domain.Authority;
-import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
 import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
@@ -11,7 +10,7 @@ import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.security.SecurityUtils;
 import ro.upb.dai.mcc.vmman.service.dto.DepartmentDTO;
 import ro.upb.dai.mcc.vmman.service.util.RandomUtil;
-import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
+import ro.upb.dai.mcc.vmman.service.dto.ManagedUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -111,35 +110,35 @@ public class UserService {
         return newUser;
     }
 
-    public ManagedUserVM createUser(ManagedUserVM managedUserVM) {
+    public ManagedUserDTO createUser(ManagedUserDTO managedUserDTO) {
         User user = new User();
-        user.setLogin(managedUserVM.getLogin());
-        user.setFirstName(managedUserVM.getFirstName());
-        user.setLastName(managedUserVM.getLastName());
-        user.setEmail(managedUserVM.getEmail());
-        if (managedUserVM.getLangKey() == null) {
+        user.setLogin(managedUserDTO.getLogin());
+        user.setFirstName(managedUserDTO.getFirstName());
+        user.setLastName(managedUserDTO.getLastName());
+        user.setEmail(managedUserDTO.getEmail());
+        if (managedUserDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language
         } else {
-            user.setLangKey(managedUserVM.getLangKey());
+            user.setLangKey(managedUserDTO.getLangKey());
         }
-        if (managedUserVM.getAuthorities() != null) {
+        if (managedUserDTO.getAuthorities() != null) {
             Set<Authority> authorities = new HashSet<>();
-            managedUserVM.getAuthorities().forEach(
+            managedUserDTO.getAuthorities().forEach(
                 authority -> authorities.add(authorityRepository.findOne(authority))
             );
             user.setAuthorities(authorities);
         }
-        String encryptedPassword = passwordEncoder.encode(managedUserVM.getPassword());
+        String encryptedPassword = passwordEncoder.encode(managedUserDTO.getPassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
-        if (managedUserVM.getDepartment() != null) {
-            user.setDepartment(departmentRepository.findOne(managedUserVM.getDepartment().getId()));
+        if (managedUserDTO.getDepartment() != null) {
+            user.setDepartment(departmentRepository.findOne(managedUserDTO.getDepartment().getId()));
         }
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
-        return new ManagedUserVM(user);
+        return new ManagedUserDTO(user);
     }
 
     public void updateUser(String firstName, String lastName, String email, String langKey) {
