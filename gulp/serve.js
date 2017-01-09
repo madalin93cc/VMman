@@ -16,7 +16,6 @@ module.exports = function () {
     // to correctly handle them.
     var proxyRoutes = [
         '/api',
-        '/management',
         '/v2/api-docs',
         '/h2-console'
     ];
