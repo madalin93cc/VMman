@@ -56,7 +56,7 @@ server:
 # JHipster specific properties
 # ===================================================================
 
-jhipster:
+vmman:
     async:
         corePoolSize: 2
         maxPoolSize: 50

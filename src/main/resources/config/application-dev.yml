@@ -54,7 +54,7 @@ server:
 # JHipster specific properties
 # ===================================================================
 
-jhipster:
+vmman:
     security:
         rememberMe:
             # security key (this key should be unique for your application, and kept secret)

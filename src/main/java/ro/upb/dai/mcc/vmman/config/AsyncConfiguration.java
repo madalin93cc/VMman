@@ -23,16 +23,16 @@ public class AsyncConfiguration implements AsyncConfigurer {
     private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
     @Inject
-    private JHipsterProperties jHipsterProperties;
+    private VmmanProperties vmmanProperties;
 
     @Override
     @Bean(name = "taskExecutor")
     public Executor getAsyncExecutor() {
         log.debug("Creating Async Task Executor");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(jHipsterProperties.getAsync().getCorePoolSize());
-        executor.setMaxPoolSize(jHipsterProperties.getAsync().getMaxPoolSize());
-        executor.setQueueCapacity(jHipsterProperties.getAsync().getQueueCapacity());
+        executor.setCorePoolSize(vmmanProperties.getAsync().getCorePoolSize());
+        executor.setMaxPoolSize(vmmanProperties.getAsync().getMaxPoolSize());
+        executor.setQueueCapacity(vmmanProperties.getAsync().getQueueCapacity());
         executor.setThreadNamePrefix("v-mman-Executor-");
         return new ExceptionHandlingAsyncTaskExecutor(executor);
     }

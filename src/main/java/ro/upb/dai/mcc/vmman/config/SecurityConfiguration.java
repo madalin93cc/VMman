@@ -1,7 +1,6 @@
 package ro.upb.dai.mcc.vmman.config;
 
 import ro.upb.dai.mcc.vmman.security.*;
-import ro.upb.dai.mcc.vmman.config.JHipsterProperties;
 
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +27,7 @@ import javax.inject.Inject;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
-    private JHipsterProperties jHipsterProperties;
+    private VmmanProperties vmmanProperties;
 
     @Inject
     private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
@@ -87,7 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .rememberMe()
             .rememberMeServices(rememberMeServices)
             .rememberMeParameter("remember-me")
-            .key(jHipsterProperties.getSecurity().getRememberMe().getKey())
+            .key(vmmanProperties.getSecurity().getRememberMe().getKey())
         .and()
             .formLogin()
             .loginProcessingUrl("/api/authentication")

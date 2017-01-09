@@ -52,7 +52,7 @@ server:
 # JHipster specific properties
 # ===================================================================
 
-jhipster:
+vmman:
     http:
         cache: # Used by the CachingHttpHeadersFilter
             timeToLiveInDays: 1461

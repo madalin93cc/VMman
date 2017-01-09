@@ -1,6 +1,6 @@
 package ro.upb.dai.mcc.vmman.web.filter;
 
-import ro.upb.dai.mcc.vmman.config.JHipsterProperties;
+import ro.upb.dai.mcc.vmman.config.VmmanProperties;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
@@ -17,15 +17,15 @@ public class CachingHttpHeadersFilter implements Filter {
 
     private long CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(1461L);
 
-    private JHipsterProperties jHipsterProperties;
+    private VmmanProperties vmmanProperties;
 
-    public CachingHttpHeadersFilter(JHipsterProperties jHipsterProperties) {
-        this.jHipsterProperties = jHipsterProperties;
+    public CachingHttpHeadersFilter(VmmanProperties vmmanProperties) {
+        this.vmmanProperties = vmmanProperties;
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(jHipsterProperties.getHttp().getCache().getTimeToLiveInDays());
+        CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(vmmanProperties.getHttp().getCache().getTimeToLiveInDays());
     }
 
     @Override

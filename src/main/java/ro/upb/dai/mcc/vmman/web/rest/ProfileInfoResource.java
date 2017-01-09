@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.upb.dai.mcc.vmman.config.DefaultProfileUtil;
-import ro.upb.dai.mcc.vmman.config.JHipsterProperties;
+import ro.upb.dai.mcc.vmman.config.VmmanProperties;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ public class ProfileInfoResource {
     private Environment env;
 
     @Inject
-    private JHipsterProperties jHipsterProperties;
+    private VmmanProperties vmmanProperties;
 
     @GetMapping("/profile-info")
     public ProfileInfoResponse getActiveProfiles() {

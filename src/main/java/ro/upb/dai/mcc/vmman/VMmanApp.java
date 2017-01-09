@@ -2,7 +2,7 @@ package ro.upb.dai.mcc.vmman;
 
 import ro.upb.dai.mcc.vmman.config.Constants;
 import ro.upb.dai.mcc.vmman.config.DefaultProfileUtil;
-import ro.upb.dai.mcc.vmman.config.JHipsterProperties;
+import ro.upb.dai.mcc.vmman.config.VmmanProperties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ import java.util.Collection;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
-@EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
+@EnableConfigurationProperties({ VmmanProperties.class, LiquibaseProperties.class })
 public class VMmanApp {
 
     private static final Logger log = LoggerFactory.getLogger(VMmanApp.class);

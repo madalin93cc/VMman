@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
  *     Properties are configured in the application.yml file.
  * </p>
  */
-@ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = false)
-public class JHipsterProperties {
+@ConfigurationProperties(prefix = "vmman", ignoreUnknownFields = false)
+public class VmmanProperties {
 
     private final Async async = new Async();
 

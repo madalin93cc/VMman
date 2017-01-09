@@ -3,7 +3,7 @@ package ro.upb.dai.mcc.vmman.security;
 import ro.upb.dai.mcc.vmman.domain.PersistentToken;
 import ro.upb.dai.mcc.vmman.repository.PersistentTokenRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
-import ro.upb.dai.mcc.vmman.config.JHipsterProperties;
+import ro.upb.dai.mcc.vmman.config.VmmanProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -69,10 +69,10 @@ public class CustomPersistentRememberMeServices extends
     private UserRepository userRepository;
 
     @Inject
-    public CustomPersistentRememberMeServices(JHipsterProperties jHipsterProperties, org.springframework.security.core.userdetails
+    public CustomPersistentRememberMeServices(VmmanProperties vmmanProperties, org.springframework.security.core.userdetails
         .UserDetailsService userDetailsService) {
 
-        super(jHipsterProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
+        super(vmmanProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
         random = new SecureRandom();
     }
 
