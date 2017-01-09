@@ -10,9 +10,9 @@
 
         <addForeignKeyConstraint baseColumnNames="manager_id"
                                  baseTableName="department"
-                                 constraintName="fk_department_jhi_user_id"
+                                 constraintName="fk_department_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
+                                 referencedTableName="user"/>
 
 
     </changeSet>

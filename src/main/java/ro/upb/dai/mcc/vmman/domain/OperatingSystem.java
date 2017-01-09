@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "operating_system")
-public class OperatingSystem implements Serializable {
+public class OperatingSystem extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

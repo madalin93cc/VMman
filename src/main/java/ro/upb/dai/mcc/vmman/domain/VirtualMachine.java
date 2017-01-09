@@ -13,7 +13,7 @@ import ro.upb.dai.mcc.vmman.domain.enumeration.Environment;
  */
 @Entity
 @Table(name = "virtual_machine")
-public class VirtualMachine implements Serializable {
+public class VirtualMachine extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

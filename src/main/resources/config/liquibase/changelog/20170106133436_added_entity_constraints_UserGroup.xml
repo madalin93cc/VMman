@@ -9,7 +9,7 @@
     <changeSet id="20170106133436-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="department_id"
-                                 baseTableName="jhi_user"
+                                 baseTableName="user"
                                  constraintName="fk_user_department_id"
                                  referencedColumnNames="id"
                                  referencedTableName="department"/>

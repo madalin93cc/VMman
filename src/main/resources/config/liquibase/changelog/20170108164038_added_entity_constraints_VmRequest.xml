@@ -18,13 +18,13 @@
                                  baseTableName="vm_request"
                                  constraintName="fk_vm_request_from_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
+                                 referencedTableName="user"/>
 
         <addForeignKeyConstraint baseColumnNames="to_id"
                                  baseTableName="vm_request"
                                  constraintName="fk_vm_request_to_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
+                                 referencedTableName="user"/>
 
         <addForeignKeyConstraint baseColumnNames="project_id"
                                  baseTableName="vm_request"

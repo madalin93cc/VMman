@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @see ro.upb.dai.mcc.vmman.security.CustomPersistentRememberMeServices
  */
 @Entity
-@Table(name = "jhi_persistent_token")
+@Table(name = "persistent_token")
 public class PersistentToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class PersistentToken implements Serializable {
     @NotNull
     @Column(name = "token_value", nullable = false)
     private String tokenValue;
-    
+
     @Column(name = "token_date")
     private LocalDate tokenDate;
 

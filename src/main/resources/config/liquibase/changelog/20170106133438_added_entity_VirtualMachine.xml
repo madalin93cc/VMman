@@ -27,31 +27,31 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="description" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="environment" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="ip" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="hdd" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="processor" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="ram" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="project_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -60,8 +60,17 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
 </databaseChangeLog>

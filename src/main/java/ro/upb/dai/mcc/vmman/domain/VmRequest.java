@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "vm_request")
-public class VmRequest implements Serializable {
+public class VmRequest extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
