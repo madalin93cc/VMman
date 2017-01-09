@@ -60,7 +60,9 @@ public class VmRequestServiceImpl implements VmRequestService{
                 vmRequest.to(department.getManager());
             }
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)){
-            vmRequest.approved(true);
+            if (vmRequest.getId() == null) {
+                vmRequest.approved(true);
+            }
         }
 
         VmRequest result = vmRequestRepository.save(vmRequest);

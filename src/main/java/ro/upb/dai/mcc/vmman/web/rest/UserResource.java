@@ -57,6 +57,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api")
+@Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER})
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
@@ -82,7 +83,6 @@ public class UserResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/users")
-    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<?> createUser(@RequestBody ManagedUserDTO managedUserDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", managedUserDTO);
 
@@ -113,7 +113,6 @@ public class UserResource {
      * or with status 500 (Internal Server Error) if the user couldn't be updated
      */
     @PutMapping("/users")
-    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<ManagedUserDTO> updateUser(@RequestBody ManagedUserDTO managedUserDTO) {
         log.debug("REST request to update User : {}", managedUserDTO);
         Optional<User> existingUser = userRepository.findOneByEmail(managedUserDTO.getEmail());
@@ -207,7 +206,6 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);

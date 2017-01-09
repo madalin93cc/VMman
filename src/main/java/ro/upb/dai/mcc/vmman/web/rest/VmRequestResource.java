@@ -119,7 +119,7 @@ public class VmRequestResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/vm-requests/{id}")
-    @Secured({AuthoritiesConstants.MANAGER})
+    @Secured({AuthoritiesConstants.MANAGER, AuthoritiesConstants.USER})
     public ResponseEntity<Void> deleteVmRequest(@PathVariable Long id) {
         log.debug("REST request to delete VmRequest : {}", id);
         vmRequestService.delete(id);

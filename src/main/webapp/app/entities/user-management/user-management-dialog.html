@@ -115,8 +115,10 @@
 
         <div class="form-group">
             <label>Roles</label>
-            <select class="form-control" multiple name="authority" ng-model="vm.user.authorities"
-                    ng-options="authority for authority in vm.authorities">
+            <select class="form-control" name="authority" ng-model="vm.user.authorities">
+                <option>{{vm.authorities[0]}}</option>
+                <option has-authority="ROLE_ADMIN">{{vm.authorities[1]}}</option>
+                <option has-authority="ROLE_ADMIN">{{vm.authorities[2]}}</option>
             </select>
         </div>
     </div>

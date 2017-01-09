@@ -83,6 +83,7 @@ public class OperatingSystemResource {
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/operating-systems")
+    @Secured({AuthoritiesConstants.USER, AuthoritiesConstants.MANAGER, AuthoritiesConstants.ADMIN})
     public ResponseEntity<List<OperatingSystem>> getAllOperatingSystems(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of OperatingSystems");

@@ -9,7 +9,6 @@
 
     function VmRequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VmRequest, OperatingSystem, User, Project) {
         var vm = this;
-
         vm.vmRequest = entity;
         vm.clear = clear;
         vm.save = save;
