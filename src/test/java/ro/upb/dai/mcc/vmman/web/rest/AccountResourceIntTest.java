@@ -6,7 +6,6 @@ import ro.upb.dai.mcc.vmman.domain.User;
 import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
-import ro.upb.dai.mcc.vmman.service.MailService;
 import ro.upb.dai.mcc.vmman.service.UserService;
 import ro.upb.dai.mcc.vmman.service.dto.UserDTO;
 import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
@@ -55,9 +54,6 @@ public class AccountResourceIntTest {
     @Mock
     private UserService mockUserService;
 
-    @Mock
-    private MailService mockMailService;
-
     private MockMvc restUserMockMvc;
 
     private MockMvc restMvc;
@@ -65,17 +61,14 @@ public class AccountResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        doNothing().when(mockMailService).sendActivationEmail((User) anyObject());
 
         AccountResource accountResource = new AccountResource();
         ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountResource, "userService", userService);
-        ReflectionTestUtils.setField(accountResource, "mailService", mockMailService);
 
         AccountResource accountUserMockResource = new AccountResource();
         ReflectionTestUtils.setField(accountUserMockResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountUserMockResource, "userService", mockUserService);
-        ReflectionTestUtils.setField(accountUserMockResource, "mailService", mockMailService);
 
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountUserMockResource).build();
