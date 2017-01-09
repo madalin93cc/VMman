@@ -1,10 +1,19 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
+import com.codahale.metrics.annotation.Timed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import ro.upb.dai.mcc.vmman.config.Constants;
-import com.codahale.metrics.annotation.Timed;
 import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
 import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
@@ -13,24 +22,16 @@ import ro.upb.dai.mcc.vmman.repository.UserRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.service.MailService;
 import ro.upb.dai.mcc.vmman.service.UserService;
-import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
 import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import ro.upb.dai.mcc.vmman.web.rest.vm.ManagedUserVM;
 
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -152,7 +153,7 @@ public class UserResource {
      */
     @GetMapping("/managers")
     @Timed
-    public ResponseEntity<List<ManagedUserVM>> getAllManagers(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ManagedUserVM>> getAllManagers(Pageable pageable)
         throws URISyntaxException {
         Page<User> page = userRepository.findAllWithAuthorities(pageable);
         List<ManagedUserVM> managedUserVMs = page.getContent().stream()
@@ -174,7 +175,7 @@ public class UserResource {
     @GetMapping("/users")
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<ManagedUserVM>> getAllUsers(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ManagedUserVM>> getAllUsers(Pageable pageable)
         throws URISyntaxException {
 
         User user = userRepository.findOneByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get();

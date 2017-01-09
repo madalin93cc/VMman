@@ -1,12 +1,6 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import ro.upb.dai.mcc.vmman.domain.OperatingSystem;
-import ro.upb.dai.mcc.vmman.service.OperatingSystemService;
-import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
-import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
-
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,6 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.upb.dai.mcc.vmman.domain.OperatingSystem;
+import ro.upb.dai.mcc.vmman.service.OperatingSystemService;
+import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
+import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -31,7 +29,7 @@ import java.util.Optional;
 public class OperatingSystemResource {
 
     private final Logger log = LoggerFactory.getLogger(OperatingSystemResource.class);
-        
+
     @Inject
     private OperatingSystemService operatingSystemService;
 
@@ -86,7 +84,7 @@ public class OperatingSystemResource {
      */
     @GetMapping("/operating-systems")
     @Timed
-    public ResponseEntity<List<OperatingSystem>> getAllOperatingSystems(@ApiParam Pageable pageable)
+    public ResponseEntity<List<OperatingSystem>> getAllOperatingSystems(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of OperatingSystems");
         Page<OperatingSystem> page = operatingSystemService.findAll(pageable);

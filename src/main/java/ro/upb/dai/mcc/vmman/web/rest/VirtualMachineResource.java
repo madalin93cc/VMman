@@ -1,13 +1,6 @@
 package ro.upb.dai.mcc.vmman.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
-import ro.upb.dai.mcc.vmman.service.VirtualMachineService;
-import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
-import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
-import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
-
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,6 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
+import ro.upb.dai.mcc.vmman.service.VirtualMachineService;
+import ro.upb.dai.mcc.vmman.service.dto.VirtualMachineDTO;
+import ro.upb.dai.mcc.vmman.web.rest.util.HeaderUtil;
+import ro.upb.dai.mcc.vmman.web.rest.util.PaginationUtil;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -87,7 +85,7 @@ public class VirtualMachineResource {
      */
     @GetMapping("/virtual-machines")
     @Timed
-    public ResponseEntity<List<VirtualMachineDTO>> getAllVirtualMachines(@ApiParam Pageable pageable)
+    public ResponseEntity<List<VirtualMachineDTO>> getAllVirtualMachines(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of VirtualMachines");
         Page<VirtualMachineDTO> page = virtualMachineService.findAll(pageable);

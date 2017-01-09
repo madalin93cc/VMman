@@ -71,13 +71,3 @@ jhipster:
             key: 61feccfdc28fa3aaaf14e4a62dd195f13ae81eaa
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
-    swagger:
-        title: VMman API
-        description: VMman API documentation
-        version: 0.0.1
-        termsOfServiceUrl:
-        contactName:
-        contactUrl:
-        contactEmail:
-        license:
-        licenseUrl:

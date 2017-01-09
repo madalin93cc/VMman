@@ -68,16 +68,6 @@ jhipster:
         #max-age: 1800
     mail:
         from: VMman@localhost
-    swagger:
-        title: VMman API
-        description: VMman API documentation
-        version: 0.0.1
-        termsOfServiceUrl:
-        contactName:
-        contactUrl:
-        contactEmail:
-        license:
-        licenseUrl:
     ribbon:
         # comma separated list of profiles to show a ribbon on the GUI
         displayOnActiveProfiles: dev
