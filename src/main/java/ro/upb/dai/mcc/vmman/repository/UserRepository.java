@@ -28,10 +28,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findOneByLogin(String login);
 
-    @Query(value = "select distinct user from User user left join fetch user.authorities",
+    @Query(value = "select distinct user from User user left join fetch user.authorities where user.login <> 'system'",
         countQuery = "select count(user) from User user")
     Page<User> findAllWithAuthorities(Pageable pageable);
-    @Query(value = "select distinct user from User user left join fetch user.authorities where user.department = :department",
+    @Query(value = "select distinct user from User user left join fetch user.authorities where user.department = :department and user.login <> 'system'",
         countQuery = "select count(user) from User user where user.department = :department")
     Page<User> findAllWithAuthoritiesByDepartment(@Param("department") Department department, Pageable pageable);
 }

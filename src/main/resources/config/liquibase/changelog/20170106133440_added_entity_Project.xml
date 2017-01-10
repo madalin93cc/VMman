@@ -42,5 +42,11 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/projects.csv"
+                  separator=";"
+                  tableName="project">
+            <column name="created_date" type="timestamp"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>
