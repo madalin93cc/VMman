@@ -32,6 +32,9 @@
 
         function save () {
             vm.isSaving = true;
+            if (!angular.isArray(vm.user.authorities)) {
+                vm.user.authorities = [vm.user.authorities];
+            }
             if (vm.user.id !== null) {
                 User.update(vm.user, onSaveSuccess, onSaveError);
             } else {

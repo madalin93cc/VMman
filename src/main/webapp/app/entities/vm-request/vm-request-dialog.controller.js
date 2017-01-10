@@ -5,15 +5,14 @@
         .module('vMmanApp')
         .controller('VmRequestDialogController', VmRequestDialogController);
 
-    VmRequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'VmRequest', 'OperatingSystem', 'User', 'Project'];
+    VmRequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'VmRequest', 'OperatingSystem', 'Project'];
 
-    function VmRequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VmRequest, OperatingSystem, User, Project) {
+    function VmRequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VmRequest, OperatingSystem, Project) {
         var vm = this;
         vm.vmRequest = entity;
         vm.clear = clear;
         vm.save = save;
         vm.operatingsystems = OperatingSystem.query();
-        vm.users = User.query();
         vm.projects = Project.query();
 
         $timeout(function (){

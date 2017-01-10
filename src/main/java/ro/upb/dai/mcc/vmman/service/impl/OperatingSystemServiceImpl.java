@@ -1,5 +1,7 @@
 package ro.upb.dai.mcc.vmman.service.impl;
 
+import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
+import ro.upb.dai.mcc.vmman.repository.VmRequestRepository;
 import ro.upb.dai.mcc.vmman.service.OperatingSystemService;
 import ro.upb.dai.mcc.vmman.domain.OperatingSystem;
 import ro.upb.dai.mcc.vmman.repository.OperatingSystemRepository;
@@ -21,9 +23,15 @@ import java.util.List;
 public class OperatingSystemServiceImpl implements OperatingSystemService{
 
     private final Logger log = LoggerFactory.getLogger(OperatingSystemServiceImpl.class);
-    
+
     @Inject
     private OperatingSystemRepository operatingSystemRepository;
+
+    @Inject
+    private VmRequestRepository vmRequestRepository;
+
+    @Inject
+    private VirtualMachineRepository virtualMachineRepository;
 
     /**
      * Save a operatingSystem.
@@ -39,11 +47,11 @@ public class OperatingSystemServiceImpl implements OperatingSystemService{
 
     /**
      *  Get all the operatingSystems.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<OperatingSystem> findAll(Pageable pageable) {
         log.debug("Request to get all OperatingSystems");
         Page<OperatingSystem> result = operatingSystemRepository.findAll(pageable);
@@ -56,7 +64,7 @@ public class OperatingSystemServiceImpl implements OperatingSystemService{
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public OperatingSystem findOne(Long id) {
         log.debug("Request to get OperatingSystem : {}", id);
         OperatingSystem operatingSystem = operatingSystemRepository.findOne(id);
@@ -68,8 +76,14 @@ public class OperatingSystemServiceImpl implements OperatingSystemService{
      *
      *  @param id the id of the entity
      */
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         log.debug("Request to delete OperatingSystem : {}", id);
-        operatingSystemRepository.delete(id);
+        if ((!(vmRequestRepository.countByOperatingSystemId(id) == 0)) ||
+            (!(virtualMachineRepository.countByOperatingSystemId(id) == 0))) {
+            return false;
+        } else {
+            operatingSystemRepository.delete(id);
+            return true;
+        }
     }
 }

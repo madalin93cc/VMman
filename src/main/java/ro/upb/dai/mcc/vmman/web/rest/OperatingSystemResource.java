@@ -118,8 +118,12 @@ public class OperatingSystemResource {
     @DeleteMapping("/operating-systems/{id}")
     public ResponseEntity<Void> deleteOperatingSystem(@PathVariable Long id) {
         log.debug("REST request to delete OperatingSystem : {}", id);
-        operatingSystemService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("operatingSystem", id.toString())).build();
+        Boolean result = operatingSystemService.delete(id);
+        if (!result) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("operatingSystem", "relationshipexists", "The record cannot be deleted because it is used by other enitities.")).body(null);
+        } else {
+            return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("operatingSystem", id.toString())).build();
+        }
     }
 
 }

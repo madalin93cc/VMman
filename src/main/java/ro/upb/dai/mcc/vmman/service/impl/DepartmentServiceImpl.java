@@ -42,6 +42,12 @@ public class DepartmentServiceImpl implements DepartmentService{
      */
     public DepartmentDTO save(Department department) {
         log.debug("Request to save Department : {}", department);
+        User manager = userRepository.findOne(department.getManager().getId());
+        if (manager != null) {
+            if (!manager.getDepartment().equals(department)) {
+                return null;
+            }
+        }
         DepartmentDTO result = new DepartmentDTO(departmentRepository.save(department));
         return result;
     }

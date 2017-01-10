@@ -72,9 +72,13 @@ public class DepartmentResource {
             return createDepartment(department);
         }
         DepartmentDTO result = departmentService.save(department);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("department", department.getId().toString()))
-            .body(result);
+        if (result == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("department", "managererror", "The manager must belong to this department")).body(null);
+        } else {
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert("department", department.getId().toString()))
+                .body(result);
+        }
     }
 
     /**

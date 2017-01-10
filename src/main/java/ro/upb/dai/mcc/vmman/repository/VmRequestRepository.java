@@ -22,4 +22,6 @@ public interface VmRequestRepository extends JpaRepository<VmRequest,Long> {
     List<VmRequest> findByToIsCurrentUser();
 
     Page<VmRequest> findAllByFromDepartment(Pageable pageable, Department department);
+
+    Integer countByOperatingSystemId(Long id);
 }

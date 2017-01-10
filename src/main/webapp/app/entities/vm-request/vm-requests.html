@@ -72,7 +72,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm"></span>
                             </button>
-                            <button ng-show="!vm.hasRole('ROLE_ADMIN') && !vmRequest.approved"
+                            <button ng-show="((!vm.hasRole('ROLE_ADMIN') && !vmRequest.approved) || (vm.hasRole('ROLE_ADMIN') && vmRequest.created))"
                                     type="submit"
                                     ui-sref="vm-request.delete({id:vmRequest.id})"
                                     class="btn btn-danger btn-sm">

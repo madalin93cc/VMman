@@ -1,6 +1,7 @@
 package ro.upb.dai.mcc.vmman.service;
 
 import ro.upb.dai.mcc.vmman.domain.Authority;
+import ro.upb.dai.mcc.vmman.domain.Department;
 import ro.upb.dai.mcc.vmman.domain.User;
 import ro.upb.dai.mcc.vmman.repository.AuthorityRepository;
 import ro.upb.dai.mcc.vmman.repository.DepartmentRepository;
@@ -46,44 +47,6 @@ public class UserService {
 
     @Inject
     private DepartmentRepository departmentRepository;
-
-    public Optional<User> activateRegistration(String key) {
-        log.debug("Activating user for activation key {}", key);
-        return userRepository.findOneByActivationKey(key)
-            .map(user -> {
-                // activate given user for the registration key.
-                user.setActivated(true);
-                user.setActivationKey(null);
-                log.debug("Activated user: {}", user);
-                return user;
-            });
-    }
-
-    public Optional<User> completePasswordReset(String newPassword, String key) {
-       log.debug("Reset user password for reset key {}", key);
-
-       return userRepository.findOneByResetKey(key)
-            .filter(user -> {
-                ZonedDateTime oneDayAgo = ZonedDateTime.now().minusHours(24);
-                return user.getResetDate().isAfter(oneDayAgo);
-           })
-           .map(user -> {
-                user.setPassword(passwordEncoder.encode(newPassword));
-                user.setResetKey(null);
-                user.setResetDate(null);
-                return user;
-           });
-    }
-
-    public Optional<User> requestPasswordReset(String mail) {
-        return userRepository.findOneByEmail(mail)
-            .filter(User::getActivated)
-            .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(ZonedDateTime.now());
-                return user;
-            });
-    }
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
         String langKey) {
@@ -157,6 +120,14 @@ public class UserService {
         Optional.of(userRepository
             .findOne(id))
             .ifPresent(user -> {
+                Department department = departmentRepository.findOneByManagerId(id);
+                if (department != null) {
+//                    if user is manager and the new role is not manager
+                    if ((!authorities.contains(AuthoritiesConstants.MANAGER)) || (departmentDTO.getId() != department.getId())) {
+                        department.setManager(null);
+                        departmentRepository.save(department);
+                    }
+                }
                 user.setLogin(login);
                 user.setFirstName(firstName);
                 user.setLastName(lastName);

@@ -12,4 +12,6 @@ import ro.upb.dai.mcc.vmman.domain.VirtualMachine;
 @SuppressWarnings("unused")
 public interface VirtualMachineRepository extends JpaRepository<VirtualMachine,Long> {
     Page<VirtualMachine> findAllByProjectDepartment(Pageable pageable, Department department);
+
+    Integer countByOperatingSystemId(Long id);
 }

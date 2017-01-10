@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="control-label">Login</label>
             <input type="text" class="form-control" name="login"
-                   ng-model="vm.user.login" ng-required="vm.user.id == null" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/">
+                   ng-model="vm.user.login" ng-required="true" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/">
 
             <div ng-show="editForm.login.$invalid">
                 <p class="help-block"
@@ -55,33 +55,35 @@
         <div class="form-group">
             <label class="control-label">First Name</label>
             <input type="text" class="form-control" name="firstName"
-                   ng-model="vm.user.firstName" ng-maxlength="50">
+                   ng-model="vm.user.firstName" ng-maxlength="50" ng-required="true">
 
             <div ng-show="editForm.firstName.$invalid">
-                <p class="help-block"
-                   ng-show="editForm.firstName.$error.maxlength"
-                  >
+                <p class="help-block" ng-show="editForm.firstName.$error.maxlength">
                     This field cannot be longer than 50 characters.
+                </p>
+                <p class="help-block" ng-show="editForm.firstName.$error.required">
+                    This field is required.
                 </p>
             </div>
         </div>
         <div class="form-group">
             <label>Last Name</label>
             <input type="text" class="form-control" name="lastName"
-                   ng-model="vm.user.lastName" ng-maxlength="50">
+                   ng-model="vm.user.lastName" ng-maxlength="50" ng-required="true">
 
             <div ng-show="editForm.lastName.$invalid">
-                <p class="help-block"
-                   ng-show="editForm.lastName.$error.maxlength"
-                  >
+                <p class="help-block" ng-show="editForm.lastName.$error.maxlength">
                     This field cannot be longer than 50 characters.
+                </p>
+                <p class="help-block" ng-show="editForm.lastName.$error.required">
+                    This field is required.
                 </p>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label">Email</label>
             <input type="email" class="form-control" name="email"
-                   ng-model="vm.user.email" required ng-maxlength="100">
+                   ng-model="vm.user.email" ng-maxlength="100" ng-required="true">
 
             <div ng-show="editForm.email.$invalid">
                 <p class="help-block"
@@ -102,7 +104,7 @@
         </div>
         <div class="form-group">
             <label for="field_department">Department</label>
-            <select class="form-control" id="field_department" name="department" ng-model="vm.user.department" ng-options="department as department.name for department in vm.departments track by department.id">
+            <select ng-required="true" class="form-control" id="field_department" name="department" ng-model="vm.user.department" ng-options="department as department.name for department in vm.departments track by department.id">
                 <option value=""></option>
             </select>
         </div>
@@ -115,7 +117,7 @@
 
         <div class="form-group">
             <label>Roles</label>
-            <select class="form-control" name="authority" ng-model="vm.user.authorities">
+            <select ng-required="true" class="form-control" name="authority" ng-model="vm.user.authorities">
                 <option>{{vm.authorities[0]}}</option>
                 <option has-authority="ROLE_ADMIN">{{vm.authorities[1]}}</option>
                 <option has-authority="ROLE_ADMIN">{{vm.authorities[2]}}</option>
