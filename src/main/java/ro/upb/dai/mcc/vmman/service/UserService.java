@@ -97,9 +97,16 @@ public class UserService {
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
         if (managedUserDTO.getDepartment() != null) {
-            user.setDepartment(departmentRepository.findOne(managedUserDTO.getDepartment().getId()));
+            Department department = departmentRepository.findOne(managedUserDTO.getDepartment().getId());
+            user.setDepartment(department);
+            userRepository.save(user);
+            if (department.getManager() == null && user.getAuthorities().contains(authorityRepository.findOne(AuthoritiesConstants.MANAGER))) {
+                department.setManager(user);
+                departmentRepository.save(department);
+            }
+        } else {
+            userRepository.save(user);
         }
-        userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return new ManagedUserDTO(user);
     }
@@ -148,6 +155,11 @@ public class UserService {
 
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
+            Department department = departmentRepository.findOneByManagerId(user.getId());
+            if (department != null) {
+                department.setManager(null);
+                departmentRepository.save(department);
+            }
             userRepository.delete(user);
             log.debug("Deleted User: {}", user);
         });

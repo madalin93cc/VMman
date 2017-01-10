@@ -42,9 +42,10 @@ public class DepartmentServiceImpl implements DepartmentService{
      */
     public DepartmentDTO save(Department department) {
         log.debug("Request to save Department : {}", department);
-        User manager = userRepository.findOne(department.getManager().getId());
-        if (manager != null) {
-            if (!manager.getDepartment().equals(department)) {
+
+        if (department.getManager() != null) {
+            User manager = userRepository.findOne(department.getManager().getId());
+            if (manager != null && !manager.getDepartment().equals(department)) {
                 return null;
             }
         }

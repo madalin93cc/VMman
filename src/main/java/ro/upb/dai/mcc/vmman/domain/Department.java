@@ -33,7 +33,7 @@ public class Department extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Project> projects = new HashSet<>();
 
