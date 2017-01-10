@@ -9,7 +9,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                    <!--<img class="logo-img" src="content/images/logo-jhipster.png" alt="logo"/>-->
                     <span>VMman</span> <!--<span class="navbar-version">v{{VERSION}}</span>-->
                 </a>
             </div>
@@ -21,46 +20,6 @@
                             <span class="hidden-sm">Home</span>
                         </a>
                     </li>
-                    <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-                    <!--<li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown-->
-                        <!--class="dropdown pointer">-->
-                        <!--<a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">-->
-                        <!--<span>-->
-                            <!--<span class="glyphicon glyphicon-th-list"></span>-->
-                            <!--<span class="hidden-sm">-->
-                                <!--Entities-->
-                            <!--</span>-->
-                            <!--<b class="caret"></b>-->
-                        <!--</span>-->
-                        <!--</a>-->
-                        <!--<ul class="dropdown-menu" uib-dropdown-menu>-->
-                            <!--<li ui-sref-active="active">-->
-                                <!--<a ui-sref="department" ng-click="vm.collapseNavbar()">-->
-                                    <!--<span class="glyphicon glyphicon-asterisk"></span>&nbsp;-->
-                                    <!--<span>Department</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--<li ui-sref-active="active">-->
-                                <!--<a ui-sref="virtual-machine" ng-click="vm.collapseNavbar()">-->
-                                    <!--<span class="glyphicon glyphicon-asterisk"></span>&nbsp;-->
-                                    <!--<span>Virtual Machine</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--<li ui-sref-active="active">-->
-                                <!--<a ui-sref="operating-system" ng-click="vm.collapseNavbar()">-->
-                                    <!--<span class="glyphicon glyphicon-asterisk"></span>&nbsp;-->
-                                    <!--<span>Operating System</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--<li ui-sref-active="active">-->
-                                <!--<a ui-sref="project" ng-click="vm.collapseNavbar()">-->
-                                    <!--<span class="glyphicon glyphicon-asterisk"></span>&nbsp;-->
-                                    <!--<span>Project</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--&lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;-->
-                        <!--</ul>-->
-                    <!--</li>-->
                     <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                         <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
                         <span>
@@ -86,30 +45,12 @@
                                     <span>Password</span>
                                 </a>
                             </li>
-                            <!--<li ui-sref-active="active" ng-switch-when="true">-->
-                                <!--<a ui-sref="sessions" ng-click="vm.collapseNavbar()">-->
-                                    <!--<span class="glyphicon glyphicon-cloud"></span>&nbsp;-->
-                                    <!--<span>Sessions</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
                             <li ui-sref-active="active" ng-switch-when="true">
                                 <a href="" ng-click="vm.logout()" id="logout">
                                     <span class="fa fa-sign-out"></span>&nbsp;
                                     <span>Sign out</span>
                                 </a>
                             </li>
-                            <!--<li ui-sref-active="active" ng-switch-when="false">-->
-                                <!--<a href="" ng-click="vm.login()" id="login">-->
-                                    <!--<span class="glyphicon glyphicon-log-in"></span>&nbsp;-->
-                                    <!--<span>Sign in</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--<li ui-sref-active="active" ng-switch-when="false">-->
-                                <!--<a ui-sref="register" ng-click="vm.collapseNavbar()">-->
-                                    <!--<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;-->
-                                    <!--<span>Register</span>-->
-                                <!--</a>-->
-                            <!--</li>-->
                         </ul>
                     </li>
                 </ul>

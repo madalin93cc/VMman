@@ -11,26 +11,13 @@
         var vm = this;
 
         vm.authenticationError = false;
-        // vm.cancel = cancel;
         vm.credentials = {};
         vm.login = login;
         vm.password = null;
-        // vm.register = register;
         vm.rememberMe = true;
-        // vm.requestResetPassword = requestResetPassword;
         vm.username = null;
 
         $timeout(function (){angular.element('#username').focus();});
-
-        // function cancel () {
-        //     vm.credentials = {
-        //         username: null,
-        //         password: null,
-        //         rememberMe: true
-        //     };
-        //     vm.authenticationError = false;
-        //     $uibModalInstance.dismiss('cancel');
-        // }
 
         function login (event) {
             event.preventDefault();
@@ -60,15 +47,5 @@
                 vm.authenticationError = true;
             });
         }
-
-        // function register () {
-        //     $uibModalInstance.dismiss('cancel');
-        //     $state.go('register');
-        // }
-        //
-        // function requestResetPassword () {
-        //     $uibModalInstance.dismiss('cancel');
-        //     $state.go('requestReset');
-        // }
     }
 })();
