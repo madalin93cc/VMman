@@ -49,7 +49,7 @@ server:
         min-response-size: 1024
 
 # ===================================================================
-# JHipster specific properties
+# Application specific properties
 # ===================================================================
 
 vmman:

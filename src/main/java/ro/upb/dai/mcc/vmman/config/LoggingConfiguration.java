@@ -52,7 +52,7 @@ public class LoggingConfiguration {
         logstashAppender.setContext(context);
         String customFields = "{\"app_name\":\"" + appName + "\",\"app_port\":\"" + serverPort + "\"}";
 
-        // Set the Logstash appender config from JHipster properties
+        // Set the Logstash appender config from VMman properties
         logstashAppender.setSyslogHost(vmmanProperties.getLogging().getLogstash().getHost());
         logstashAppender.setPort(vmmanProperties.getLogging().getLogstash().getPort());
         logstashAppender.setCustomFields(customFields);

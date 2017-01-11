@@ -53,7 +53,7 @@ server:
     address: localhost
 
 # ===================================================================
-# JHipster specific properties
+# Application specific properties
 # ===================================================================
 
 vmman:

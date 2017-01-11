@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity VirtualMachine.
     -->
-    <changeSet id="20170106133440-2" author="jhipster">
+    <changeSet id="20170106133440-2" author="system">
 
         <addForeignKeyConstraint baseColumnNames="department_id"
                                  baseTableName="project"

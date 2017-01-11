@@ -51,7 +51,7 @@ server:
     port: 8080
 
 # ===================================================================
-# JHipster specific properties
+# Application specific properties
 # ===================================================================
 
 vmman:

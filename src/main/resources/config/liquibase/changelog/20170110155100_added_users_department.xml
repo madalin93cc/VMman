@@ -19,7 +19,7 @@
     <!--
         Added the entity Department.
     -->
-    <changeSet id="20170110155100-1" author="jhipster">
+    <changeSet id="20170110155100-1" author="system">
         <!--<sql dbms="mysql, oracle, mssql">-->
             <!--update user set department_id = 1 where id = 4;-->
             <!--update user set department_id = 1 where id = 5;-->

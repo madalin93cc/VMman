@@ -6,7 +6,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import javax.validation.constraints.NotNull;
 
 /**
- * Properties specific to JHipster.
+ * Properties specific to Vmman.
  *
  * <p>
  *     Properties are configured in the application.yml file.

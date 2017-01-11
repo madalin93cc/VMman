@@ -16,7 +16,6 @@ buildscript {
         classpath "com.moowork.gradle:gradle-node-plugin:0.14"
         classpath "com.moowork.gradle:gradle-gulp-plugin:0.13"
         classpath "io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE"
-        //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
     }
 }
 
@@ -75,9 +74,6 @@ test {
     include '**/*UnitTest*'
     include '**/*IntTest*'
 
-    // uncomment if the tests reports are not generated
-    // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
-    // ignoreFailures true
     reports.html.enabled = false
 }
 
@@ -94,7 +90,6 @@ apply from: 'gradle/yeoman.gradle'
 
 apply from: 'gradle/liquibase.gradle'
 
-//jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
 
 if (project.hasProperty('prod')) {
     apply from: 'gradle/profile_prod.gradle'
@@ -190,7 +185,6 @@ dependencies {
 
     testCompile "com.h2database:h2"
     optional "org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}"
-    //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
 clean {

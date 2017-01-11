@@ -42,7 +42,7 @@ server:
             http-only: true
 
 # ===================================================================
-# JHipster specific properties
+# Application specific properties
 # ===================================================================
 
 vmman:

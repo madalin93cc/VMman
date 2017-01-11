@@ -1,7 +1,5 @@
 # VMman
 
-This application was generated using JHipster 3.12.2, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.12.2](https://jhipster.github.io/documentation-archive/v3.12.2).
-
 ## Development
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
@@ -27,8 +25,6 @@ Bower is used to manage CSS and JavaScript dependencies used in this application
 specifying a newer version in `bower.json`. You can also run `bower update` and `bower install` to manage dependencies.
 Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
-
 ## Building for production
 
 To optimize the VMman application for production, run:
@@ -42,8 +38,6 @@ To ensure everything worked, run:
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
-Refer to [Using JHipster in production][] for more details.
-
 ## Testing
 
 To launch your application's tests, run:
@@ -55,28 +49,3 @@ To launch your application's tests, run:
 Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in `src/test/javascript/` and can be run with:
 
     gulp test
-
-
-
-For more information, refer to the [Running tests page][].
-
-## Continuous Integration (optional)
-
-To set up a CI environment, consult the [Setting up Continuous Integration][] page.
-
-[JHipster Homepage and latest documentation]: https://jhipster.github.io
-[JHipster 3.12.2 archive]: https://jhipster.github.io/documentation-archive/v3.12.2
-
-[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v3.12.2/development/
-[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v3.12.2/production/
-[Running tests page]: https://jhipster.github.io/documentation-archive/v3.12.2/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v3.12.2/setting-up-ci/
-
-
-[Node.js]: https://nodejs.org/
-[Bower]: http://bower.io/
-[Gulp]: http://gulpjs.com/
-[BrowserSync]: http://www.browsersync.io/
-[Karma]: http://karma-runner.github.io/
-[Jasmine]: http://jasmine.github.io/2.0/introduction.html
-[Protractor]: https://angular.github.io/protractor/

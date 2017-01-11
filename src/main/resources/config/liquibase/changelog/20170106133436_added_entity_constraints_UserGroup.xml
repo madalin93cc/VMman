@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity VMUser.
     -->
-    <changeSet id="20170106133436-2" author="jhipster">
+    <changeSet id="20170106133436-2" author="system">
 
         <addForeignKeyConstraint baseColumnNames="department_id"
                                  baseTableName="user"
