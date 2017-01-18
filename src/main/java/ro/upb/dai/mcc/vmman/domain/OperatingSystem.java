@@ -20,7 +20,7 @@ public class OperatingSystem extends AbstractAuditingEntity implements Serializa
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     public Long getId() {

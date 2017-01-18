@@ -65,7 +65,7 @@
 
         <div class="form-group">
             <label for="field_operatingSystem">Operating System</label>
-            <select class="form-control" id="field_operatingSystem" name="operatingSystem" ng-model="vm.vmRequest.operatingSystem" ng-options="operatingSystem as operatingSystem.name for operatingSystem in vm.operatingsystems track by operatingSystem.id">
+            <select ng-required="true" class="form-control" id="field_operatingSystem" name="operatingSystem" ng-model="vm.vmRequest.operatingSystem" ng-options="operatingSystem as operatingSystem.name for operatingSystem in vm.operatingsystems track by operatingSystem.id">
                 <option value=""></option>
             </select>
         </div>
