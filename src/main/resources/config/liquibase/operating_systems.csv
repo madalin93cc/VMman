@@ -1,9 +1,25 @@
 id;name;created_by;last_modified_by
-1;Windows 7;system;system
-2;Windows 8;system;system
-3;Windows 8.1;system;system
-4;Windows 10;system;system
-5;Ubuntu;system;system
-6;CentOS;system;system
-7;CoreOS;system;system
-8;Debian;system;system
+1;Windows 7 32-bit;system;system
+2;Windows 7 64-bit;system;system
+3;Windows 8 32-bit;system;system
+4;Windows 8 64-bit;system;system
+5;Windows 8.1 32-bit;system;system
+6;Windows 8.1 64-bit;system;system
+7;Windows 10 64-bit;system;system
+8;Ubuntu linux;system;system
+9;CentOS;system;system
+10;CoreOS;system;system
+11;Debian;system;system
+12;Mac OS X 10.0;system;system
+13;Mac OS X 10.1;system;system
+14;Mac OS X 10.2;system;system
+15;Mac OS X Panther;system;system
+16;Linux Mint;system;system
+17;Arch Linux;system;system
+18;Deepin;system;system
+19;Fedora;system;system
+20;openSUSE;system;system
+21;Ubuntu Server;system;system
+22;SUSE Enterprise Linux;system;system
+
+

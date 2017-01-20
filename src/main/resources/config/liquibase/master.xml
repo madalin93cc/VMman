@@ -16,4 +16,5 @@
     <include file="classpath:config/liquibase/changelog/20170106133437_added_entity_constraints_Department.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170108164038_added_entity_constraints_VmRequest.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170110155100_added_users_department.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170120132200_added_vm.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
