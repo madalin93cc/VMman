@@ -163,6 +163,7 @@ dependencies {
     compile ("org.springframework.boot:spring-boot-starter-web") {
         exclude module: 'spring-boot-starter-tomcat'
     }
+    compile "org.springframework.boot:spring-boot-starter-mail"
     compile "org.springframework.boot:spring-boot-starter-undertow"
     compile ("org.springframework:spring-context-support") {
         exclude(module: 'quartz')

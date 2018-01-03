@@ -32,6 +32,16 @@ spring:
         favicon:
             enabled: false
 
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: noreplyCLUeFARM@gmail.com
+        password: noreply@cluefarm123
+        properties.mail.smtp:
+            auth: true
+            starttls.enable: true
+            ssl.trust: smtp.gmail.com
+
 security:
     basic:
         enabled: false
