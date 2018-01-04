@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.upb.dai.mcc.vmman.service.util.SimpleMailMessageBuilder;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -47,6 +48,9 @@ public class UserService {
 
     @Inject
     private DepartmentRepository departmentRepository;
+
+    @Inject
+    private MailService mailService;
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
         String langKey) {
@@ -169,6 +173,12 @@ public class UserService {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
             String encryptedPassword = passwordEncoder.encode(password);
             user.setPassword(encryptedPassword);
+            mailService.sendSimpleMessage(
+                new SimpleMailMessageBuilder(user.getEmail(),
+                    "Password changed",
+                    "Your password has been successfully changed.")
+                    .build()
+            );
             log.debug("Changed password for User: {}", user);
         });
     }

@@ -16,8 +16,10 @@ import ro.upb.dai.mcc.vmman.repository.VirtualMachineRepository;
 import ro.upb.dai.mcc.vmman.repository.VmRequestRepository;
 import ro.upb.dai.mcc.vmman.security.AuthoritiesConstants;
 import ro.upb.dai.mcc.vmman.security.SecurityUtils;
+import ro.upb.dai.mcc.vmman.service.MailService;
 import ro.upb.dai.mcc.vmman.service.VmRequestService;
 import ro.upb.dai.mcc.vmman.service.dto.VmRequestDTO;
+import ro.upb.dai.mcc.vmman.service.util.SimpleMailMessageBuilder;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -42,6 +44,9 @@ public class VmRequestServiceImpl implements VmRequestService{
     @Inject
     private VirtualMachineRepository virtualMachineRepository;
 
+    @Inject
+    private MailService mailService;
+
     /**
      * Save a vmRequest.
      *
@@ -58,11 +63,25 @@ public class VmRequestServiceImpl implements VmRequestService{
             Department department = user.getDepartment();
             if (department != null) {
                 vmRequest.to(department.getManager());
+                mailService.sendSimpleMessage(
+                    new SimpleMailMessageBuilder(department.getManager().getEmail(),
+                        "New Virtual Machine Request",
+                        "A request for a new virtual machine has been created. You can go to VMman application and review it.")
+                        .build()
+                );
             }
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)){
             if (vmRequest.getId() == null) {
                 vmRequest.approved(true);
             }
+
+            User admin = userRepository.findOneByLogin("admin").get();
+            mailService.sendSimpleMessage(
+                new SimpleMailMessageBuilder(admin.getEmail(),
+                    "New Virtual Machine Request",
+                    "A request for a new virtual machine has been created. You can go to VMman application and review it.")
+                    .build()
+            );
         }
 
         VmRequest result = vmRequestRepository.save(vmRequest);
@@ -129,12 +148,24 @@ public class VmRequestServiceImpl implements VmRequestService{
      *  @param id the id of the entity
      */
     public void approve(Long id) {
-        System.out.println("approved");
         VmRequest request = vmRequestRepository.findOne(id);
         if (request != null) {
             User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
             if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGER)) {
                 request.approved(true);
+                mailService.sendSimpleMessage(
+                    new SimpleMailMessageBuilder(request.getFrom().getEmail(),
+                        "Virtual Machine Request was Approved",
+                        "Your virtual machine request was approved by the manager of your department. You can check the status on VMman application")
+                        .build()
+                );
+                User admin = userRepository.findOneByLogin("admin").get();
+                mailService.sendSimpleMessage(
+                    new SimpleMailMessageBuilder(admin.getEmail(),
+                        "New Virtual Machine Request",
+                        "A request for a new virtual machine has been created. You can go to VMman application and review it.")
+                        .build()
+                );
             } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
                 if (request.isApproved()) {
                     VirtualMachine virtualMachine = new VirtualMachine();
@@ -148,6 +179,19 @@ public class VmRequestServiceImpl implements VmRequestService{
                     virtualMachine.setEnvironment(request.getEnvironment());
                     virtualMachineRepository.save(virtualMachine);
                     request.setCreated(true);
+                    mailService.sendSimpleMessage(
+                        new SimpleMailMessageBuilder(request.getFrom().getEmail(),
+                            "Virtual Machine was Created",
+                            "Your virtual machine was created. You can check the details of your new virtual machine on VMman application")
+                            .build()
+                    );
+
+                    mailService.sendSimpleMessage(
+                        new SimpleMailMessageBuilder(request.getFrom().getDepartment().getManager().getEmail(),
+                            "Virtual Machine was Created",
+                            "A new virtual machine was created for your department. You can check the details of the new virtual machine on VMman application")
+                            .build()
+                    );
                 }
             }
             vmRequestRepository.save(request);
