@@ -1,112 +1,36 @@
-id;name;description;environment;ip;hdd;processor;ram;project_id;operating_system_id;created_by;last_modified_by
-1;VM1;VM1 description;DEV;1.1.1.1;256GB;Intel Core i7; 8GB;1;1;system;system
-2;VM2;VM2 description;TEST;1.1.1.2;256GB;Intel Core i7; 8GB;1;1;system;system
-3;VM3;VM3 description;PROD;1.1.1.3;256GB;Intel Core i7; 8GB;1;1;system;system
+id;name;description;environment;ip;generic_vm_id;hdd;processor;ram;project_id;operating_system_id;created_by;last_modified_by
+1;VM1;VM1 description;DEV;1.1.1.1;1;128GB;Intel Core i3;4GB;1;1;system;system
+2;VM2;VM2 description;TEST;1.1.1.2;1;128GB;Intel Core i3;4GB;1;1;system;system
+3;VM3;VM3 description;PROD;1.1.1.3;1;256GB;Intel Core i7; 8GB;1;1;system;system
 
-4;VM4;VM4 description;DEV;2.2.2.1;128GB;Intel Core i5; 4GB;2;2;system;system
-5;VM5;VM5 description;TEST;2.2.2.2;128GB;Intel Core i5; 4GB;2;2;system;system
-6;VM6;VM6 description;PROD;2.2.2.3;128GB;Intel Core i5; 4GB;2;2;system;system
+4;VM4;VM4 description;DEV;2.2.2.1;2;128GB;Intel Core i5;4GB;2;2;system;system
+5;VM5;VM5 description;TEST;2.2.2.2;2;128GB;Intel Core i5;4GB;2;2;system;system
+6;VM6;VM6 description;PROD;2.2.2.3;2;128GB;Intel Core i5;4GB;2;2;system;system
 
-7;VM7;VM1 description;DEV;1.1.1.7;512GB;Intel Core i7; 8GB;3;3;system;system
-8;VM8;VM2 description;TEST;1.1.1.8;512GB;Intel Core i7; 8GB;3;3;system;system
-9;VM9;VM3 description;PROD;1.1.1.9;512GB;Intel Core i7; 8GB;3;3;system;system
+7;VM7;VM1 description;DEV;1.1.1.7;3;128GB;Intel Core i7;4GB;3;3;system;system
+8;VM8;VM2 description;TEST;1.1.1.8;3;128GB;Intel Core i7;4GB;3;3;system;system
+9;VM9;VM3 description;PROD;1.1.1.9;3;128GB;Intel Core i7;4GB;3;3;system;system
 
-10;VM10;VM10 description;DEV;1.1.1.10;512GB;Intel Core i7; 8GB;4;4;system;system
-11;VM11;VM11 description;TEST;1.1.1.11;512GB;Intel Core i7; 8GB;4;4;system;system
-12;VM12;VM12 description;PROD;1.1.1.12;512GB;Intel Core i7; 8GB;4;4;system;system
+10;VM10;VM10 description;DEV;1.1.1.10;4;256GB;Intel Core i3;8GB;4;4;system;system
+11;VM11;VM11 description;TEST;1.1.1.11;4;256GB;Intel Core i3;8GB;4;4;system;system
+12;VM12;VM12 description;PROD;1.1.1.12;4;256GB;Intel Core i3;8GB;4;4;system;system
 
-13;VM13;VM13 description;DEV;1.1.1.13;512GB;Intel Core i7; 8GB;5;5;system;system
-14;VM14;VM14 description;TEST;1.1.1.14;512GB;Intel Core i7; 8GB;5;5;system;system
-15;VM15;VM15 description;PROD;1.1.1.15;512GB;Intel Core i7; 8GB;5;5;system;system
+13;VM13;VM13 description;DEV;1.1.1.13;5;256GB;Intel Core i7;8GB;5;5;system;system
+14;VM14;VM14 description;TEST;1.1.1.14;5;256GB;Intel Core i7;8GB;5;5;system;system
+15;VM15;VM15 description;PROD;1.1.1.15;5;256GB;Intel Core i7;8GB;5;5;system;system
 
-16;VM16;VM16 description;DEV;1.1.1.16;512GB;Intel Core i7; 8GB;6;6;system;system
-17;VM17;VM17 description;TEST;1.1.1.17;512GB;Intel Core i7; 8GB;6;6;system;system
-18;VM18;VM18 description;PROD;1.1.1.18;512GB;Intel Core i7; 8GB;6;6;system;system
+16;VM16;VM16 description;DEV;1.1.1.16;6;256GB;Intel Core i5;8GB;6;6;system;system
+17;VM17;VM17 description;TEST;1.1.1.17;6;256GB;Intel Core i5;8GB;6;6;system;system
+18;VM18;VM18 description;PROD;1.1.1.18;6;256GB;Intel Core i5;8GB;6;6;system;system
 
-19;VM19;VM19 description;DEV;1.1.1.19;512GB;Intel Core i7; 8GB;7;7;system;system
-20;VM20;VM20 description;TEST;1.1.1.20;512GB;Intel Core i7; 8GB;7;7;system;system
-21;VM21;VM21 description;PROD;1.1.1.21;512GB;Intel Core i7; 8GB;7;7;system;system
+19;VM19;VM19 description;DEV;1.1.1.19;7;512GB;Intel Core i5;16GB;7;7;system;system
+20;VM20;VM20 description;TEST;1.1.1.20;7;512GB;Intel Core i5;16GB;7;7;system;system
+21;VM21;VM21 description;PROD;1.1.1.21;7;512GB;Intel Core i5;16GB;7;7;system;system
 
-22;VM22;VM22 description;DEV;1.1.1.22;512GB;Intel Core i7; 8GB;8;8;system;system
-23;VM23;VM23 description;TEST;1.1.1.23;512GB;Intel Core i7; 8GB;8;8;system;system
-24;VM24;VM24 description;PROD;1.1.1.24;512GB;Intel Core i7; 8GB;8;8;system;system
+22;VM22;VM22 description;DEV;1.1.1.22;8;512GB;Intel Core i3;16GB;8;8;system;system
+23;VM23;VM23 description;TEST;1.1.1.23;8;512GB;Intel Core i3;16GB;8;8;system;system
+24;VM24;VM24 description;PROD;1.1.1.24;8;512GB;Intel Core i3;16GB;8;8;system;system
 
-25;VM25;VM25 description;DEV;1.1.1.25;256GB;Intel Core i3; 8GB;9;9;system;system
-26;VM26;VM26 description;TEST;1.1.1.26;256GB;Intel Core i3; 8GB;9;9;system;system
-27;VM27;VM27 description;PROD;1.1.1.27;256GB;Intel Core i3; 8GB;9;9;system;system
-
-28;VM28;VM28 description;DEV;1.1.1.28;256GB;Intel Core i3; 8GB;10;10;system;system
-29;VM29;VM29 description;TEST;1.1.1.29;256GB;Intel Core i3; 8GB;10;10;system;system
-30;VM30;VM30 description;PROD;1.1.1.30;256GB;Intel Core i3; 8GB;10;10;system;system
-
-31;VM31;VM31 description;DEV;1.1.1.31;256GB;Intel Core i3; 8GB;11;1;system;system
-32;VM32;VM32 description;TEST;1.1.1.32;256GB;Intel Core i3; 8GB;11;1;system;system
-33;VM33;VM33 description;PROD;1.1.1.33;256GB;Intel Core i3; 8GB;11;1;system;system
-
-34;VM34;VM34 description;DEV;1.1.1.34;256GB;Intel Core i3; 8GB;12;1;system;system
-35;VM35;VM35 description;TEST;1.1.1.35;256GB;Intel Core i3; 8GB;12;1;system;system
-36;VM36;VM36 description;PROD;1.1.1.36;256GB;Intel Core i3; 8GB;12;1;system;system
-
-37;VM37;VM37 description;DEV;1.1.1.37;256GB;Intel Core i3; 8GB;13;12;system;system
-38;VM38;VM38 description;TEST;1.1.1.38;256GB;Intel Core i3; 8GB;13;12;system;system
-39;VM39;VM39 description;PROD;1.1.1.39;256GB;Intel Core i3; 8GB;13;12;system;system
-
-40;VM40;VM40 description;DEV;1.1.1.40;256GB;Intel Core i3; 8GB;14;1;system;system
-41;VM41;VM41 description;TEST;1.1.1.41;256GB;Intel Core i3; 8GB;14;1;system;system
-42;VM42;VM42 description;PROD;1.1.1.42;256GB;Intel Core i3; 8GB;14;1;system;system
-
-43;VM43;VM43 description;DEV;1.1.1.43;256GB;Intel Core i7; 8GB;15;15;system;system
-44;VM44;VM44 description;TEST;1.1.1.44;256GB;Intel Core i7; 8GB;15;15;system;system
-45;VM45;VM45 description;PROD;1.1.1.45;256GB;Intel Core i7; 8GB;15;15;system;system
-
-46;VM46;VM46 description;DEV;1.1.1.46;256GB;Intel Core i7; 8GB;16;17;system;system
-47;VM47;VM47 description;TEST;1.1.1.47;256GB;Intel Core i7; 8GB;16;17;system;system
-48;VM48;VM48 description;PROD;1.1.1.48;256GB;Intel Core i7; 8GB;16;17;system;system
-
-49;VM49;VM49 description;DEV;1.1.1.49;256GB;Intel Core i7; 8GB;17;20;system;system
-50;VM50;VM50 description;TEST;1.1.1.50;256GB;Intel Core i7; 8GB;17;20;system;system
-51;VM51;VM51 description;PROD;1.1.1.51;256GB;Intel Core i7; 8GB;17;20;system;system
-
-52;VM52;VM52 description;DEV;1.1.1.52;256GB;Intel Core i7; 8GB;18;1;system;system
-53;VM53;VM53 description;TEST;1.1.1.53;256GB;Intel Core i7; 8GB;18;1;system;system
-54;VM54;VM54 description;PROD;1.1.1.54;256GB;Intel Core i7; 8GB;18;1;system;system
-
-55;VM55;VM55 description;DEV;1.1.1.55;256GB;Intel Core i7; 8GB;19;1;system;system
-56;VM56;VM56 description;TEST;1.1.1.56;256GB;Intel Core i7; 8GB;19;1;system;system
-57;VM57;VM57 description;PROD;1.1.1.57;256GB;Intel Core i7; 8GB;19;1;system;system
-
-58;VM58;VM58 description;DEV;1.1.2.1;256GB;Intel Core i7; 8GB;20;1;system;system
-59;VM59;VM59 description;TEST;1.1.3.1;256GB;Intel Core i7; 8GB;20;1;system;system
-60;VM60;VM60 description;PROD;1.1.4.1;256GB;Intel Core i7; 8GB;20;1;system;system
-
-61;VM61;VM61 description;DEV;1.1.5.1;256GB;Intel Core i7; 8GB;21;1;system;system
-62;VM62;VM62 description;TEST;1.1.6.1;256GB;Intel Core i7; 8GB;21;1;system;system
-63;VM63;VM63 description;PROD;1.1.7.1;256GB;Intel Core i7; 8GB;21;1;system;system
-
-64;VM64;VM64 description;DEV;1.1.8.1;256GB;Intel Core i7; 8GB;22;1;system;system
-65;VM65;VM65 description;TEST;1.1.9.1;256GB;Intel Core i7; 8GB;22;1;system;system
-66;VM66;VM66 description;PROD;1.1.10.1;256GB;Intel Core i7; 8GB;22;1;system;system
-
-67;VM67;VM67 description;DEV;1.2.1.1;256GB;Intel Core i7; 8GB;23;1;system;system
-68;VM68;VM68 description;TEST;1.3.1.1;256GB;Intel Core i7; 8GB;23;1;system;system
-69;VM69;VM69 description;PROD;1.4.1.1;256GB;Intel Core i7; 8GB;23;1;system;system
-
-70;VM70;VM70 description;DEV;1.5.1.1;256GB;Intel Core i7; 8GB;24;1;system;system
-71;VM71;VM71 description;TEST;1.6.1.1;256GB;Intel Core i7; 8GB;24;1;system;system
-72;VM72;VM72 description;PROD;1.7.1.1;256GB;Intel Core i7; 8GB;24;1;system;system
-
-73;VM73;VM73 description;DEV;1.8.1.1;256GB;Intel Core i7; 8GB;25;1;system;system
-74;VM74;VM74 description;TEST;1.9.1.1;256GB;Intel Core i7; 8GB;25;1;system;system
-75;VM75;VM75 description;PROD;1.10.1.1;256GB;Intel Core i7; 8GB;25;1;system;system
-
-76;VM76;VM76 description;DEV;1.1.11.1;256GB;Intel Core i7; 8GB;26;1;system;system
-77;VM77;VM77 description;TEST;1.1.12.1;256GB;Intel Core i7; 8GB;26;1;system;system
-78;VM78;VM78 description;PROD;1.1.13.1;256GB;Intel Core i7; 8GB;26;1;system;system
-
-79;VM79;VM79 description;DEV;1.13.1.1;256GB;Intel Core i7; 8GB;27;1;system;system
-80;VM80;VM80 description;TEST;1.14.1.1;256GB;Intel Core i7; 8GB;27;1;system;system
-81;VM81;VM81 description;PROD;1.15.1.1;256GB;Intel Core i7; 8GB;27;1;system;system
-
-82;VM82;VM82 description;DEV;12.1.1.1;256GB;Intel Core i7; 8GB;28;1;system;system
-83;VM83;VM83 description;TEST;11.1.1.1;256GB;Intel Core i7; 8GB;28;1;system;system
-84;VM84;VM84 description;PROD;12.1.1.1;256GB;Intel Core i7; 8GB;28;1;system;system
+25;VM25;VM25 description;DEV;1.1.1.25;9;512GB;Intel Core i7;16GB;9;9;system;system
+26;VM26;VM26 description;TEST;1.1.1.26;9;512GB;Intel Core i7;16GB;9;9;system;system
+27;VM27;VM27 description;PROD;1.1.1.27;9;512GB;Intel Core i7;16GB;9;9;system;system

@@ -1,0 +1,10 @@
+id;name;hdd;processor;ram
+1;Tiny i3;128GB;Intel Core i3;4GB
+2;Tiny i5;128GB;Intel Core i5;4GB
+3;Tiny i7;128GB;Intel Core i7;4GB
+4;Medium i3;256GB;Intel Core i3;8GB
+5;Medium i7;256GB;Intel Core i7;8GB
+6;Medium i5;256GB;Intel Core i5;8GB
+7;Large i5;512GB;Intel Core i5;16GB
+8;Large i3;512GB;Intel Core i3;16GB
+9;Large i7;512GB;Intel Core i7;16GB
