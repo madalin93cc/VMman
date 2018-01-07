@@ -23,9 +23,7 @@
                     <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="environment"><span>Environment</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="ip"><span>Ip</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="hdd"><span>Hdd</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="processor"><span>Processor</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="ram"><span>Ram</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="genericVm.id"><span>Generic Vm</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="project.id"><span>Project</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="operatingSystem.id"><span>Operating System</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
@@ -38,9 +36,9 @@
                     <td>{{virtualMachine.description}}</td>
                     <td>{{virtualMachine.environment}}</td>
                     <td>{{virtualMachine.ip}}</td>
-                    <td>{{virtualMachine.hdd}}</td>
-                    <td>{{virtualMachine.processor}}</td>
-                    <td>{{virtualMachine.ram}}</td>
+                    <td>
+                        <span>{{virtualMachine.genericVm.name}}</span>
+                    </td>
                     <td>
                         <a ui-sref="project-detail({id:virtualMachine.project.id})">{{virtualMachine.project.name}}</a>
                     </td>

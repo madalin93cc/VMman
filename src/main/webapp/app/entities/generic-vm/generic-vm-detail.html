@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Generic Vm</span> {{vm.genericVm.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.genericVm.name}}</span>
+        </dd>
+        <dt><span>Hdd</span></dt>
+        <dd>
+            <span>{{vm.genericVm.hdd}}</span>
+        </dd>
+        <dt><span>Processor</span></dt>
+        <dd>
+            <span>{{vm.genericVm.processor}}</span>
+        </dd>
+        <dt><span>Ram</span></dt>
+        <dd>
+            <span>{{vm.genericVm.ram}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="generic-vm-detail.edit({id:vm.genericVm.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

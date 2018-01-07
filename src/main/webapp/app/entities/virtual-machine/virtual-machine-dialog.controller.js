@@ -5,9 +5,9 @@
         .module('vMmanApp')
         .controller('VirtualMachineDialogController', VirtualMachineDialogController);
 
-    VirtualMachineDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'VirtualMachine', 'Project', 'OperatingSystem'];
+    VirtualMachineDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'VirtualMachine', 'Project', 'OperatingSystem', 'GenericVm'];
 
-    function VirtualMachineDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VirtualMachine, Project, OperatingSystem) {
+    function VirtualMachineDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VirtualMachine, Project, OperatingSystem, GenericVm) {
         var vm = this;
 
         vm.virtualMachine = entity;
@@ -15,6 +15,8 @@
         vm.save = save;
         vm.projects = Project.query();
         vm.operatingsystems = OperatingSystem.query();
+        vm.genericVms = GenericVm.query();
+        vm.onInstanceChange = onInstanceChange;
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -43,6 +45,12 @@
             vm.isSaving = false;
         }
 
+        function onInstanceChange () {
+            var selected = vm.virtualMachine.genericVm;
+            vm.virtualMachine.hdd = selected.hdd;
+            vm.virtualMachine.processor = selected.processor;
+            vm.virtualMachine.ram = selected.ram;
+        }
 
     }
 })();

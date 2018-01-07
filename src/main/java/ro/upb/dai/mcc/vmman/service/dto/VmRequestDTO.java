@@ -21,6 +21,7 @@ public class VmRequestDTO {
     private ManagedUserDTO to;
     private ProjectDTO project;
     private Environment environment;
+    private GenericVmDTO genericVm;
 
     public VmRequestDTO() {
     }
@@ -39,9 +40,10 @@ public class VmRequestDTO {
         this.to = (vmRequest.getTo() != null)? new ManagedUserDTO(vmRequest.getTo()): null;
         this.project = (vmRequest.getProject() != null)? new ProjectDTO(vmRequest.getProject()): null;
         this.environment = vmRequest.getEnvironment();
+        this.genericVm = (vmRequest.getGenericVm() != null) ? new GenericVmDTO(vmRequest.getGenericVm()) : null;
     }
 
-    public VmRequestDTO(Long id, String name, String description, String hdd, String processor, String ram, Boolean approved, Boolean created, OperatingSystem operatingSystem, ManagedUserDTO from, ManagedUserDTO to, ProjectDTO project, Environment environment) {
+    public VmRequestDTO(Long id, String name, String description, String hdd, String processor, String ram, Boolean approved, Boolean created, OperatingSystem operatingSystem, ManagedUserDTO from, ManagedUserDTO to, ProjectDTO project, Environment environment, GenericVmDTO genericVm) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -55,6 +57,7 @@ public class VmRequestDTO {
         this.to = to;
         this.project = project;
         this.environment = environment;
+        this.genericVm = genericVm;
     }
 
     public Long getId() {
@@ -159,6 +162,14 @@ public class VmRequestDTO {
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+
+    public GenericVmDTO getGenericVm() {
+        return genericVm;
+    }
+
+    public void setGenericVm(GenericVmDTO genericVm) {
+        this.genericVm = genericVm;
     }
 
     @Override

@@ -43,21 +43,27 @@
                      />
         </div>
         <div class="form-group">
+            <label for="field_generic_vm">Instance Type</label>
+            <select class="form-control" id="field_generic_vm" ng-change="vm.onInstanceChange()" name="generic_vm" ng-model="vm.virtualMachine.genericVm" ng-options="genericVm as genericVm.name for genericVm in vm.genericVms track by genericVm.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
             <label class="control-label" for="field_hdd">Hdd</label>
             <input type="text" class="form-control" name="hdd" id="field_hdd"
-                    ng-model="vm.virtualMachine.hdd"
+                    ng-model="vm.virtualMachine.hdd" disabled
                      />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_processor">Processor</label>
             <input type="text" class="form-control" name="processor" id="field_processor"
-                    ng-model="vm.virtualMachine.processor"
+                    ng-model="vm.virtualMachine.processor" disabled
                      />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_ram">Ram</label>
             <input type="text" class="form-control" name="ram" id="field_ram"
-                    ng-model="vm.virtualMachine.ram"
+                    ng-model="vm.virtualMachine.ram" disabled
                      />
         </div>
 

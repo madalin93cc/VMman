@@ -21,9 +21,7 @@
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="hdd"><span>Hdd</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="processor"><span>Processor</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="ram"><span>Ram</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="genericVm.id"><span>Generic Vm</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="approved"><span>Approved</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="created"><span>Created</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="operatingSystem.id"><span>Operating System</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -39,9 +37,9 @@
                     <td><a ui-sref="vm-request-detail({id:vmRequest.id})">{{vmRequest.id}}</a></td>
                     <td>{{vmRequest.name}}</td>
                     <td>{{vmRequest.description}}</td>
-                    <td>{{vmRequest.hdd}}</td>
-                    <td>{{vmRequest.processor}}</td>
-                    <td>{{vmRequest.ram}}</td>
+                    <td>
+                        <span>{{vmRequest.genericVm.name}}</span>
+                    </td>
                     <td>{{vmRequest.approved}}</td>
                     <td>{{vmRequest.created}}</td>
                     <td>

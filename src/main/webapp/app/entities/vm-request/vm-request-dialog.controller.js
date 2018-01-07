@@ -5,15 +5,17 @@
         .module('vMmanApp')
         .controller('VmRequestDialogController', VmRequestDialogController);
 
-    VmRequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'VmRequest', 'OperatingSystem', 'Project'];
+    VmRequestDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'VmRequest', 'OperatingSystem', 'Project', 'GenericVm'];
 
-    function VmRequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VmRequest, OperatingSystem, Project) {
+    function VmRequestDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, VmRequest, OperatingSystem, Project, GenericVm) {
         var vm = this;
         vm.vmRequest = entity;
         vm.clear = clear;
         vm.save = save;
         vm.operatingsystems = OperatingSystem.query();
         vm.projects = Project.query();
+        vm.genericVms = GenericVm.query();
+        vm.onInstanceChange = onInstanceChange;
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -42,6 +44,12 @@
             vm.isSaving = false;
         }
 
+        function onInstanceChange () {
+            var selected = vm.vmRequest.genericVm;
+            vm.vmRequest.hdd = selected.hdd;
+            vm.vmRequest.processor = selected.processor;
+            vm.vmRequest.ram = selected.ram;
+        }
 
     }
 })();

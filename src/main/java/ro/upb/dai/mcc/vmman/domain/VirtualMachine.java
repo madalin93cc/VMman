@@ -50,6 +50,9 @@ public class VirtualMachine extends AbstractAuditingEntity implements Serializab
     @ManyToOne
     private OperatingSystem operatingSystem;
 
+    @ManyToOne
+    private GenericVm genericVm;
+
     public Long getId() {
         return id;
     }
@@ -173,6 +176,14 @@ public class VirtualMachine extends AbstractAuditingEntity implements Serializab
 
     public void setOperatingSystem(OperatingSystem operatingSystem) {
         this.operatingSystem = operatingSystem;
+    }
+
+    public GenericVm getGenericVm() {
+        return genericVm;
+    }
+
+    public void setGenericVm(GenericVm genericVm) {
+        this.genericVm = genericVm;
     }
 
     @Override

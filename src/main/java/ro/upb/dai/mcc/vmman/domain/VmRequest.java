@@ -62,6 +62,9 @@ public class VmRequest extends AbstractAuditingEntity implements Serializable {
     @Column(name = "environment")
     private Environment environment;
 
+    @ManyToOne
+    private GenericVm genericVm;
+
     public Long getId() {
         return id;
     }
@@ -224,6 +227,14 @@ public class VmRequest extends AbstractAuditingEntity implements Serializable {
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+
+    public GenericVm getGenericVm() {
+        return genericVm;
+    }
+
+    public void setGenericVm(GenericVm genericVm) {
+        this.genericVm = genericVm;
     }
 
     @Override

@@ -20,6 +20,7 @@ public class VirtualMachineDTO implements Serializable {
     private String ram;
     private ProjectDTO project;
     private OperatingSystem operatingSystem;
+    private GenericVmDTO genericVm;
 
     public VirtualMachineDTO() {
     }
@@ -36,10 +37,13 @@ public class VirtualMachineDTO implements Serializable {
         if (virtualMachine.getProject() != null) {
             this.project = new ProjectDTO(virtualMachine.getProject().getId(), virtualMachine.getProject().getName(), null);
         }
+        if (virtualMachine.getGenericVm() != null) {
+            this.genericVm = new GenericVmDTO(virtualMachine.getGenericVm());
+        }
         this.operatingSystem = virtualMachine.getOperatingSystem();
     }
 
-    public VirtualMachineDTO(Long id, String name, String description, Environment environment, String ip, String hdd, String processor, String ram, ProjectDTO project, OperatingSystem operatingSystem) {
+    public VirtualMachineDTO(Long id, String name, String description, Environment environment, String ip, String hdd, String processor, String ram, ProjectDTO project, OperatingSystem operatingSystem, GenericVmDTO genericVmDTO) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -50,6 +54,7 @@ public class VirtualMachineDTO implements Serializable {
         this.ram = ram;
         this.project = project;
         this.operatingSystem = operatingSystem;
+        this.genericVm = genericVmDTO;
     }
 
     public Long getId() {
@@ -130,6 +135,14 @@ public class VirtualMachineDTO implements Serializable {
 
     public void setOperatingSystem(OperatingSystem operatingSystem) {
         this.operatingSystem = operatingSystem;
+    }
+
+    public GenericVmDTO getGenericVm() {
+        return genericVm;
+    }
+
+    public void setGenericVm(GenericVmDTO genericVm) {
+        this.genericVm = genericVm;
     }
 
     @Override

@@ -27,40 +27,34 @@
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_hdd">Hdd</label>
-            <input type="text" class="form-control" name="hdd" id="field_hdd"
-                    ng-model="vm.vmRequest.hdd"
-                    required />
-            <div ng-show="editForm.hdd.$invalid">
+            <label for="field_generic_vm">Instance Type</label>
+            <select class="form-control" id="field_generic_vm" ng-change="vm.onInstanceChange()" name="generic_vm" ng-model="vm.vmRequest.genericVm" ng-options="genericVm as genericVm.name for genericVm in vm.genericVms track by genericVm.id" required>
+                <option value=""></option>
+            </select>
+            <div ng-show="editForm.genericVm.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.hdd.$error.required">
+                   ng-show="editForm.genericVm.$error.required">
                     This field is required.
                 </p>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_hdd">Hdd</label>
+            <input type="text" class="form-control" name="hdd" id="field_hdd"
+                    ng-model="vm.vmRequest.hdd"
+                    disabled />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_processor">Processor</label>
             <input type="text" class="form-control" name="processor" id="field_processor"
                     ng-model="vm.vmRequest.processor"
-                    required />
-            <div ng-show="editForm.processor.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.processor.$error.required">
-                    This field is required.
-                </p>
-            </div>
+                   disabled />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_ram">Ram</label>
             <input type="text" class="form-control" name="ram" id="field_ram"
                     ng-model="vm.vmRequest.ram"
-                    required />
-            <div ng-show="editForm.ram.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.ram.$error.required">
-                    This field is required.
-                </p>
-            </div>
+                   disabled />
         </div>
 
         <div class="form-group">
